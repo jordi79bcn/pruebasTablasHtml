@@ -5,7 +5,7 @@
 	<TITLE> Add/Remove dynamic rows in HTML table </TITLE>
 	<link rel="stylesheet" href="css/estilos.css">
 	
-	<SCRIPT language="javascript">
+	<SCRIPT>
 		var RUTA_IMAGEN = 'img/verde.png';
 		var numColumnas = 1;
 
@@ -19,72 +19,52 @@
 			//cell2.innerHTML = rowCount + 1;
 
 			for (var i=0; i<numColumnas; i++){
-				var celda = row.insertCell(row.length);
-            	var img = document.createElement('img');
-            	img.src = RUTA_IMAGEN;
-				celda.appendChild(img);
+				addCeldaVacia(row);
 			}
 		}
 
 		function addColumn(tableID) {
-
 			var table = document.getElementById(tableID);
 
 			for (var i = 0, row; row = table.rows[i]; i++) {
-	            //console.log("hola");
-				var img = document.createElement('img');
-	            img.src = RUTA_IMAGEN;
-				var celda = row.insertCell(row.length); //0 añade al inicio, -1 al final
-				celda.appendChild(img);
+				addCeldaVacia(row);
 			}
 			numColumnas++;
-			//console.log("numColumnas:" + numColumnas);
+		}
+		
+		function addCeldaVacia(fila){
+			var celda = fila.insertCell(fila.length);
+           	var img = document.createElement('img');
+           	img.src = RUTA_IMAGEN;
+			celda.appendChild(img);
 		}
 
 		function deleteRow(tableID) {
-			try {
-				var table = document.getElementById(tableID);
+			var table = document.getElementById(tableID);
 	
-				if(table.rows.length > 1) {
-					table.deleteRow(-1);
-				}
-			}catch(e) {
-				alert(e);
+			if(table.rows.length > 1) {
+				table.deleteRow(-1);
 			}
 		}
 		
 		function deleteColumn(tableID) {
 			var borrado = false;
 			
-			//console.log("deleteColumn");
-			try {
 			var table = document.getElementById(tableID);
 			var rowCount = table.rows.length;
-
+	
 			for(var i=0; i<rowCount; i++) {
-				//console.log("i=" + i);
-
 				var row = table.rows[i];
-				//console.log("row.length=" + row.length);
 				if (row.cells.length > 1){
-					//console.log("borro celda!");
 					row.deleteCell(-1);
 					borrado = true;
 				}
-				else{
-					//console.log("ignoro celda!");
-				}
 			}
-			
+				
 			if (borrado){
 				numColumnas--;
 			}
-			}catch(e) {
-				alert(e);
-			}
 		}
-
-
 	</SCRIPT>
 </HEAD>
 <BODY>
