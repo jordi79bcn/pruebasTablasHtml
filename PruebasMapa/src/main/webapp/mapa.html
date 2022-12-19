@@ -8,8 +8,20 @@
 	<SCRIPT>
 		var RUTA_IMAGEN = 'img/verde.png';
 		var numColumnas = 1;
+		var root = document.querySelector(':root');
+		var tamCasilla = parseInt(getComputedStyle(root).getPropertyValue('--tamCasilla'));
 
-		function addRow(tableID) {
+		function crearTabla(tableID) {
+			for(var i=0; i<100; i++){
+				anadirFila(tableID);
+			}
+			
+			for(var i=0; i<100; i++){
+				anadirColumna(tableID);
+			}			
+		}
+		
+		function anadirFila(tableID) {
 			var table = document.getElementById(tableID);
 
 			var rowCount = table.rows.length;
@@ -19,35 +31,35 @@
 			//cell2.innerHTML = rowCount + 1;
 
 			for (var i=0; i<numColumnas; i++){
-				addCeldaVacia(row);
+				anadirCeldaVacia(row);
 			}
 		}
 
-		function addColumn(tableID) {
+		function anadirColumna(tableID) {
 			var table = document.getElementById(tableID);
 
 			for (var i = 0, row; row = table.rows[i]; i++) {
-				addCeldaVacia(row);
+				anadirCeldaVacia(row);
 			}
 			numColumnas++;
 		}
 		
-		function addCeldaVacia(fila){
+		function anadirCeldaVacia(fila){
 			var celda = fila.insertCell(fila.length);
            	var img = document.createElement('img');
            	img.src = RUTA_IMAGEN;
 			celda.appendChild(img);
 		}
 
-		function deleteRow(tableID) {
+		function borrarFila(tableID) {
 			var table = document.getElementById(tableID);
 	
 			if(table.rows.length > 1) {
-				table.deleteRow(-1);
+				table.borrarFila(-1);
 			}
 		}
 		
-		function deleteColumn(tableID) {
+		function borrarColumna(tableID) {
 			var borrado = false;
 			
 			var table = document.getElementById(tableID);
@@ -65,16 +77,47 @@
 				numColumnas--;
 			}
 		}
+		
+		function cambiarTamanoCasilla(inc){
+			tamCasilla += inc;
+			
+			console.log("tamCasilla: " + tamCasilla);
+			root.style.setProperty('--tamCasilla', tamCasilla);
+		}
+		
+		function cambiarTamanoCasilla2(tableID, inc) {
+			var table = document.getElementById(tableID);
+			var rowCount = table.rows.length;
+
+			tamCasilla += inc;
+	
+			for(var i=0; i<rowCount; i++) {
+				var row = table.rows[i];
+				var colCount = row.cells.length;
+				for(var j=0; j<colCount; j++) {
+					var ancho = tamCasilla + "px";
+					var estilo = row.cells[j].style;
+					estilo.width = ancho;
+					estilo.height = ancho;
+				}
+			}
+		}
+
 	</SCRIPT>
 </HEAD>
 <BODY>
 
-	<INPUT type="button" value="Añadir fila" onclick="addRow('dataTable')" />
-	<INPUT type="button" value="Añadir columna" onclick="addColumn('dataTable')" />
+	<INPUT type="button" value="Crear tabla" onclick="crearTabla('dataTable')" />
 
-	<INPUT type="button" value="Delete Row" onclick="deleteRow('dataTable')" />
-	<INPUT type="button" value="Delete Column" onclick="deleteColumn('dataTable')" />
+	<INPUT type="button" value="Añadir fila" onclick="anadirFila('dataTable')" />
+	<INPUT type="button" value="Añadir columna" onclick="anadirColumna('dataTable')" />
 
+	<INPUT type="button" value="Borrar Fila" onclick="borrarFila('dataTable')" />
+	<INPUT type="button" value="Borrar Columna" onclick="borrarColumna('dataTable')" />
+
+	<INPUT type="button" value="aumentar casilla" onclick="cambiarTamanoCasilla2('dataTable', 20)" />
+	<INPUT type="button" value="reducir casilla" onclick="cambiarTamanoCasilla2('dataTable', -20)" />
+	
 	<TABLE id="dataTable" border="1">
 	</TABLE>
 
