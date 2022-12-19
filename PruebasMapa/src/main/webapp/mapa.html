@@ -31,14 +31,14 @@
 			var table = document.getElementById(tableID);
 
 			for (var i = 0, row; row = table.rows[i]; i++) {
-	            console.log("hola");
+	            //console.log("hola");
 				var img = document.createElement('img');
 	            img.src = RUTA_IMAGEN;
 				var celda = row.insertCell(row.length); //0 añade al inicio, -1 al final
 				celda.appendChild(img);
 			}
 			numColumnas++;
-			console.log("numColumnas:" + numColumnas);
+			//console.log("numColumnas:" + numColumnas);
 		}
 
 		function deleteRow(tableID) {
@@ -56,23 +56,23 @@
 		function deleteColumn(tableID) {
 			var borrado = false;
 			
-			console.log("deleteColumn");
+			//console.log("deleteColumn");
 			try {
 			var table = document.getElementById(tableID);
 			var rowCount = table.rows.length;
 
 			for(var i=0; i<rowCount; i++) {
-				console.log("i=" + i);
+				//console.log("i=" + i);
 
 				var row = table.rows[i];
-				console.log("row.length=" + row.length);
+				//console.log("row.length=" + row.length);
 				if (row.cells.length > 1){
-					console.log("borro celda!");
+					//console.log("borro celda!");
 					row.deleteCell(-1);
 					borrado = true;
 				}
 				else{
-					console.log("ignoro celda!");
+					//console.log("ignoro celda!");
 				}
 			}
 			
@@ -95,7 +95,7 @@
 	<INPUT type="button" value="Delete Row" onclick="deleteRow('dataTable')" />
 	<INPUT type="button" value="Delete Column" onclick="deleteColumn('dataTable')" />
 
-	<TABLE id="dataTable" width="350px" border="1">
+	<TABLE id="dataTable" border="1">
 	</TABLE>
 
 </BODY>
