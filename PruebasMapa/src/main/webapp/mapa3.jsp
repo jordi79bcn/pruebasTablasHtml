@@ -3,25 +3,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="ISO-8859-1">
-	<TITLE>Add/Remove dynamic rows in HTML table</TITLE>
-	<link rel="stylesheet" href="css/estilos2.css"/>
-	<script type="text/javascript" src="js/funciones.js"></script>
-	
-</HEAD>
+<meta charset="ISO-8859-1">
+<TITLE>Add/Remove dynamic rows in HTML table</TITLE>
+<link rel="stylesheet" href="css/estilos.css">
 
+</HEAD>
 <BODY>
 
 	<div class="container">
-		<div class="grid">
-			<c:forEach var="i" begin="1" end="2500">
-				<div class="cell" id="<c:out value="${i}" />" onclick="clickCelda(<c:out value='${i}'/>)">
-					<img src="img/verde.png"/>
-					<!-- c:out value="${i}" -->
-				</div>
+		<table border="1">
+			<c:forEach var="i" begin="1" end="100">
+				<tr>
+					<c:forEach var="j" begin="1" end="100">
+						<td class="cell" id="<c:out value="${i}" />">
+							<c:out value="${i}" />,<c:out value="${j}" /> 
+						</td>
+					</c:forEach>
+				</tr>
 			</c:forEach>
-		</div>
-	</div>
+		</table>
+	</div>				
 
 	<INPUT type="button" value="Crear tabla"
 		onclick="crearTabla('dataTable')" />
