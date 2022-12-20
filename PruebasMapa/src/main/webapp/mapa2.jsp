@@ -2,47 +2,39 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="ISO-8859-1">
-	<TITLE>Add/Remove dynamic rows in HTML table</TITLE>
+	<title>Editor de niveles</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="css/estilos2.css"/>
 	<script type="text/javascript" src="js/funciones.js"></script>
-	
-</HEAD>
 
-<BODY>
+	<body>
 
-	<div class="container">
-		<div class="grid">
-			<c:forEach var="i" begin="1" end="2500">
-				<div class="cell" id="<c:out value="${i}" />" onclick="clickCelda(<c:out value='${i}'/>)">
-					<img class="imgMapa" src="img/verde.png"/>
-					<!-- c:out value="${i}" -->
-				</div>
-			</c:forEach>
+		<div class="w3-sidebar w3-bar-block w3-light-grey" style="width:10%">
+		  <a href="#" class="w3-bar-item w3-button" 			   onclick="alert('Link 1')">Link 1</a>
+		  <a href="#" class="w3-bar-item w3-button w3-hover-black" onclick="alert('Link 2')">Link 2</a>
+		  <a href="#" class="w3-bar-item w3-button w3-hover-green" onclick="alert('Link 3')">Link 3</a>
+		  <a href="#" class="w3-bar-item w3-button w3-hover-blue"  onclick="alert('Link 4')">Link 4</a>
+		  <a href="#" class="w3-bar-item w3-button w3-hover-red"   onclick="alert('Link 5')">Link 5</a>
 		</div>
-	</div>
-
-	<INPUT type="button" value="Crear tabla"
-		onclick="crearTabla('dataTable')" />
-
-	<INPUT type="button" value="Añadir fila"
-		onclick="anadirFila('dataTable')" />
-	<INPUT type="button" value="Añadir columna"
-		onclick="anadirColumna('dataTable')" />
-
-	<INPUT type="button" value="Borrar Fila"
-		onclick="borrarFila('dataTable')" />
-	<INPUT type="button" value="Borrar Columna"
-		onclick="borrarColumna('dataTable')" />
-
-	<INPUT type="button" value="aumentar casilla"
-		onclick="cambiarTamanoCasilla2('dataTable', 20)" />
-	<INPUT type="button" value="reducir casilla"
-		onclick="cambiarTamanoCasilla2('dataTable', -20)" />
-
-	<TABLE id="dataTable" border="1">
-	</TABLE>
-
-</BODY>
-</HTML>
+		
+		<div style="margin-left:10%">
+			<div class="w3-container w3-dark-grey"  style="height:10vh">
+			  <h1>Editor de niveles</h1>
+			</div>
+		
+			<div class="w3-container"  style="height:90vh">
+				<!-- div class="container" -->
+					<div class="grid" style="height:100%">
+						<c:forEach var="i" begin="1" end="2500">
+							<div class="celda" id="<c:out value="${i}" />" 
+								onmouseenter="entrarCelda(event)"
+								onclick="clickCelda(<c:out value='${i}'/>)">
+							</div>
+						</c:forEach>
+					</div>
+				<!--/div-->
+			</div>
+		</div>
+	</body>
+</html>

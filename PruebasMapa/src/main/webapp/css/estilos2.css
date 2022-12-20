@@ -1,3 +1,7 @@
+body{
+
+}
+
 .container {
   background: black;
   display: inline-block;
@@ -9,9 +13,12 @@
   grid-template-columns: repeat(50, 80px);
   grid-template-rows: repeat(50, 80px);
   grid-gap: 5px;
+  
+  overflow-x: scroll;
+  overflow-y: scroll;
 }
 
-.cell {
+.celda {
    /* center the cell content */
   justify-content: center;
   align-items: center;
@@ -19,8 +26,9 @@
   font-family: Arial;
   font-size: 1rem;
   font-weight: bold;
-  background: white;
+  background-image: url("../img/verde.png");
 }
+
 
 /*.cell img {
 	width: 100%;
