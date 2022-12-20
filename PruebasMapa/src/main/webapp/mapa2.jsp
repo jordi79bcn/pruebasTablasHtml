@@ -16,7 +16,7 @@
 		<div class="grid">
 			<c:forEach var="i" begin="1" end="2500">
 				<div class="cell" id="<c:out value="${i}" />" onclick="clickCelda(<c:out value='${i}'/>)">
-					<img src="img/verde.png"/>
+					<img class="imgMapa" src="img/verde.png"/>
 					<!-- c:out value="${i}" -->
 				</div>
 			</c:forEach>

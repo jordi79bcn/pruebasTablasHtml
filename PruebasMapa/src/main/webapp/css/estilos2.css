@@ -22,7 +22,13 @@
   background: white;
 }
 
-.cell img {
+/*.cell img {
 	width: 100%;
 	height: 100%;
+}*/
+
+.imgMapa{
+	width: 100%;
+	height: 100%;
+	
 }
