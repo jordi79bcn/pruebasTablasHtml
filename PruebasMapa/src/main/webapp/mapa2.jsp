@@ -18,12 +18,12 @@
 		  <a href="#" class="w3-bar-item w3-button w3-hover-red"   onclick="alert('Link 5')">Link 5</a>
 		</div>
 		
-		<div style="margin-left:10%">
-			<div class="w3-container w3-dark-grey"  style="height:10vh">
+		<div style="margin-left:10%;height: 100%">
+			<div class="w3-container w3-dark-grey"  style="height:10%">
 			  <h1>Editor de niveles</h1>
 			</div>
 		
-			<div class="w3-container"  style="height:90vh">
+			<div class="w3-container container"  style="height:90%">
 				<!-- div class="container" -->
 					<div class="grid" style="height:100%">
 						<c:forEach var="i" begin="1" end="2500">
