@@ -57,17 +57,18 @@ const mapa = new Mapa(50, 50);
 	return celda;		
  }
  
-  function getFilaColumna(divCelda){
-	if (divCelda.id.indexOf("_") == -1){
-		alert("id incorrecto! " + divCelda.id);
+  function getFilaColumna(celda){
+	if (celda.id.indexOf("_") == -1){
+		alert("id incorrecto! " + celda.id);
 	}
 	
-	let datos = divCelda.id.split("_");
+	let datos = celda.id.split("_");
+	let coord = {};
 	
-	let fila = parseInt(datos[0]);
-	let col  = parseInt(datos[1]);
+	coord.fila = parseInt(datos[0]);
+	coord.col = parseInt(datos[1]);
 	
-	return mapa.getCelda(fila, col);		
+	return coord;		
  }
 
  function marcarUnaCelda(celda){

@@ -46,6 +46,14 @@ class Celda {
     this.#columna = columna;
   }
   
+  getFila(){
+	  return this.#fila;
+  }
+  
+  getColumna(){
+	  return this.#columna;
+  }
+  
   toString() {
     return `Celda (${this.#fila}, ${this.#columna})`;
   }
