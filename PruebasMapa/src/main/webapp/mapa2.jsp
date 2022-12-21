@@ -26,11 +26,13 @@
 			<div class="w3-container container"  style="height:90%">
 				<!-- div class="container" -->
 					<div class="grid" style="height:100%">
-						<c:forEach var="i" begin="1" end="2500">
-							<div class="celda" id="<c:out value="${i}" />" 
-								onmouseenter="entrarCelda(event)"
-								onclick="clickCelda(event)">
-							</div>
+						<c:forEach var="numFila" begin="1" end="50">
+							<c:forEach var="numColumna" begin="1" end="50">
+								<div class="celda" id='<c:out value="${numFila}_${numColumna}" />' 
+									onmouseenter="entrarCelda(event)"
+									onclick="clickCelda(event)">
+								</div>
+							</c:forEach>
 						</c:forEach>
 					</div>
 				<!--/div-->
