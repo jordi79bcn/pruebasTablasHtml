@@ -11,6 +11,15 @@ let tipoCasilla = TIPO_CASILLA_ROJA;
 
 let celdaInicio;
 
+class Celda {
+  constructor(fila, columna) {
+    this.fila = fila;
+    this.columna = columna;
+  }
+  toString() {
+    return `Celda (${this.fila}, ${this.columna})`;
+  }
+}
 
  function clickCelda(event){
 	if (modo == MODO_NADA){
@@ -79,10 +88,6 @@ let celdaInicio;
 		alert("tipo casilla imposible: " + tipoCasilla);
  }
  
- function marcarUnaCeldaFilaCol(fila, col){
-	 marcarUnaCelda(getCelda(fila, col));
- }
-
  function marcarBloqueCeldas(celdaInicio, celdaFin){
 	//formato:fila_columna
 	let ini = getFilaColumna(celdaInicio);
@@ -105,7 +110,7 @@ let celdaInicio;
 
 	for (let f = ini.fila; f <= fin.fila; f++){
 		for (let c = ini.col; c <= fin.col; c++){
-			marcarUnaCeldaFilaCol(f, c);
+	 		marcarUnaCelda(getCelda(f, c));
 		} 
 	} 
  }
