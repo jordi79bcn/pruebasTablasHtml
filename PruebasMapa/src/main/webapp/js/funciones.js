@@ -42,31 +42,44 @@ var celdaInicio;
  function marcarBloqueCeldas(celdaInicio, celdaFin){
 	let celdaActual;
 
-	//incremento fila y columna.
-	let incF = 1;
-	let incC = 1;
-	
 	//formato:fila_columna
 	let ini = celdaInicio.id.split("_");
 	let fin = celdaFin.id.split("_");
 	
-	console.log("ini: " + ini + "  fin: " + fin);
-	
 	let f0 = parseInt(ini[0]);
 	let c0 = parseInt(ini[1]);
+	
 	let f1 = parseInt(fin[0]);
 	let c1 = parseInt(fin[1]);
+
+	console.log("ini: " + ini + "  fin: " + fin);
 	
-	if (f0 > f1) incF = -1; 
-	if (c0 > c1) incC = -1;
+	let aux;
 	
-	for (let f = f0; f != f1; f += incF){
-		for (let c = c0; c != c1; c += incC){
+	if (f0 > f1){
+		aux = f0;
+		f0 = f1;
+		f1 = aux;
+	}  
+	if (c0 > c1){
+		aux = c0;
+		c0 = c1;
+		c1 = aux;	
+	}  
+
+	for (let f = f0; f <= f1; f++){
+		for (let c = c0; c <= c1; c++){
 			let idAct = f + "_" + c;
 			celdaActual = document.getElementById(idAct);
 			marcarUnaCelda(celdaActual);
 		} 
 	} 
+ }
+ 
+ function intercambiar(a, b){
+	 let aux = a;
+	 a = b;
+	 b = a;
  }
  
  
