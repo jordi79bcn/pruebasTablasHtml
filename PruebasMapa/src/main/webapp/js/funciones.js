@@ -1,33 +1,45 @@
-/**
- * 
- */
 const CLICK_IZQUIERDO = 1;
 const MODO_NADA = 0;
 const MODO_INSERTAR_UNA = 1;
 const MODO_INSERTAR_BLOQUE = 2;
 
 var modo = MODO_NADA;
+var celdaInicio;
 
  function clickCelda(event){
-	if (modo == MODO_NADA)
-		modo = MODO_INSERTAR_UNA;
-	else if (modo == MODO_INSERTAR_UNA)
+	if (modo == MODO_NADA){
+		if (event.ctrlKey){
+			modo = MODO_INSERTAR_BLOQUE;
+			celdaInicio = event.target;
+		}
+		else{
+			modo = MODO_INSERTAR_UNA;
+		}
+	}
+	else if (modo == MODO_INSERTAR_UNA || modo == MODO_INSERTAR_BLOQUE){
 		modo = MODO_NADA;
-	else
+	}
+	else{
 		alert("error! modo imposible: " + modo);
+	}
 		
-	marcarCelda(event.target);
+	marcarUnaCelda(event.target);
  }
  
  function entrarCelda(event){
-	 console.log(event.target.id);
 	 if (modo == MODO_INSERTAR_UNA){
-	 	marcarCelda(event.target);
+	 	marcarUnaCelda(event.target);
+	 }
+	 else if (modo == MODO_INSERTAR_BLOQUE){
+	 	marcarBloqueCeldas(celdaInicio, event.target);
 	 }
  }
  
- function marcarCelda(div){
-	//var div= document.getElementById(idCelda);
+ function marcarUnaCelda(celda){
+	celda.classList.add("roja");
+ }
+ 
+ function marcarBloqueCeldas(celdaInicio, celdaFin){
 	div.classList.add("roja");
  }
  
