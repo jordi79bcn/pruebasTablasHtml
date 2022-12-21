@@ -3,11 +3,24 @@ const MODO_NADA = 0;
 const MODO_INSERTAR_UNA = 1;
 const MODO_INSERTAR_BLOQUE = 2;
 
+const TIPO_CASILLA_VACIA = 0;
+const TIPO_CASILLA_ROJA = 1;
+
 var modo = MODO_NADA;
+var tipoCasilla = TIPO_CASILLA_ROJA;
+
 var celdaInicio;
+
 
  function clickCelda(event){
 	if (modo == MODO_NADA){
+		if (event.shiftKey){
+			tipoCasilla = TIPO_CASILLA_VACIA;
+		}
+		else{
+			tipoCasilla = TIPO_CASILLA_ROJA;
+		}
+		
 		if (event.ctrlKey){
 			modo = MODO_INSERTAR_BLOQUE;
 			celdaInicio = event.target;
@@ -35,8 +48,14 @@ var celdaInicio;
 	 }
  }
  
+ //el error esta aqui: se añaden varas .class y se puede acumular vacia y roja a la vez! Por eso no se borra bien la casilla.
  function marcarUnaCelda(celda){
-	celda.classList.add("roja");
+	if (tipoCasilla == TIPO_CASILLA_VACIA)
+		celda.className = "celda";
+	else if (tipoCasilla == TIPO_CASILLA_ROJA)
+		celda.classList.add("roja");
+	else
+		alert("tipo casilla imposible: " + tipoCasilla);		
  }
  
  function marcarBloqueCeldas(celdaInicio, celdaFin){
@@ -57,14 +76,10 @@ var celdaInicio;
 	let aux;
 	
 	if (f0 > f1){
-		aux = f0;
-		f0 = f1;
-		f1 = aux;
+		aux = f0;f0 = f1;f1 = aux;
 	}  
 	if (c0 > c1){
-		aux = c0;
-		c0 = c1;
-		c1 = aux;	
+		aux = c0;c0 = c1;c1 = aux;	
 	}  
 
 	for (let f = f0; f <= f1; f++){
@@ -75,11 +90,4 @@ var celdaInicio;
 		} 
 	} 
  }
- 
- function intercambiar(a, b){
-	 let aux = a;
-	 a = b;
-	 b = a;
- }
- 
  
