@@ -48,7 +48,14 @@ let celdaInicio;
 	 }
  }
  
- //el error esta aqui: se añaden varas .class y se puede acumular vacia y roja a la vez! Por eso no se borra bien la casilla.
+  function getCelda(fila, columna){
+	let idAct = fila + "_" + columna;
+	
+	let celda= document.getElementById(idAct);
+
+	return celda;		
+ }
+ 
  function marcarUnaCelda(celda){
 	if (tipoCasilla == TIPO_CASILLA_VACIA)
 		celda.className = "celda";
@@ -59,8 +66,6 @@ let celdaInicio;
  }
  
  function marcarBloqueCeldas(celdaInicio, celdaFin){
-	let celdaActual;
-
 	//formato:fila_columna
 	let ini = celdaInicio.id.split("_");
 	let fin = celdaFin.id.split("_");
@@ -84,9 +89,7 @@ let celdaInicio;
 
 	for (let f = f0; f <= f1; f++){
 		for (let c = c0; c <= c1; c++){
-			let idAct = f + "_" + c;
-			celdaActual = document.getElementById(idAct);
-			marcarUnaCelda(celdaActual);
+			marcarUnaCelda(getCelda(f, c));
 		} 
 	} 
  }
