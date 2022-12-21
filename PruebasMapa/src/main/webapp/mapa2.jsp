@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="css/estilos2.css"/>
+	<script type="text/javascript" src="js/clases.js"></script>
 	<script type="text/javascript" src="js/funciones.js"></script>
 
 	<body>

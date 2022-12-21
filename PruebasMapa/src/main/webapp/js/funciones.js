@@ -10,21 +10,8 @@ let modo = MODO_NADA;
 let tipoCasilla = TIPO_CASILLA_ROJA;
 
 let celdaInicio;
-
-class Celda {
-  constructor(fila, columna) {
-    this.fila = fila;
-    this.columna = columna;
-  }
-  toString() {
-    return `Celda (${this.fila}, ${this.columna})`;
-  }
-}
-
-function initCeldas(){
-	//TODO funcion para crear el array inicial con toda la info de cada celda del grid (usa calse Celda)
-	
-}
+const mapa = new Mapa(50, 50);
+//console.log(mapa.toString());
 
  function clickCelda(event){
 	if (modo == MODO_NADA){
@@ -70,18 +57,17 @@ function initCeldas(){
 	return celda;		
  }
  
-  function getFilaColumna(celda){
-	if (celda.id.indexOf("_") == -1){
-		alert("id incorrecto! " + celda.id);
+  function getFilaColumna(divCelda){
+	if (divCelda.id.indexOf("_") == -1){
+		alert("id incorrecto! " + divCelda.id);
 	}
 	
-	let datos = celda.id.split("_");
-	let coord = {};
+	let datos = divCelda.id.split("_");
 	
-	coord.fila = parseInt(datos[0]);
-	coord.col = parseInt(datos[1]);
+	let fila = parseInt(datos[0]);
+	let col  = parseInt(datos[1]);
 	
-	return coord;		
+	return mapa.getCelda(fila, col);		
  }
 
  function marcarUnaCelda(celda){
