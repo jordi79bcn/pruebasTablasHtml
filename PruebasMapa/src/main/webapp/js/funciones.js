@@ -56,40 +56,56 @@ let celdaInicio;
 	return celda;		
  }
  
+  function getFilaColumna(celda){
+	if (celda.id.indexOf("_") == -1){
+		alert("id incorrecto! " + celda.id);
+	}
+	
+	let datos = celda.id.split("_");
+	let coord = {};
+	
+	coord.fila = parseInt(datos[0]);
+	coord.col = parseInt(datos[1]);
+	
+	return coord;		
+ }
+
  function marcarUnaCelda(celda){
 	if (tipoCasilla == TIPO_CASILLA_VACIA)
 		celda.className = "celda";
 	else if (tipoCasilla == TIPO_CASILLA_ROJA)
 		celda.classList.add("roja");
 	else
-		alert("tipo casilla imposible: " + tipoCasilla);		
+		alert("tipo casilla imposible: " + tipoCasilla);
  }
  
+ function marcarUnaCeldaFilaCol(fila, col){
+	 marcarUnaCelda(getCelda(fila, col));
+ }
+
  function marcarBloqueCeldas(celdaInicio, celdaFin){
 	//formato:fila_columna
-	let ini = celdaInicio.id.split("_");
-	let fin = celdaFin.id.split("_");
+	let ini = getFilaColumna(celdaInicio);
+	let fin = getFilaColumna(celdaFin);
 	
-	let f0 = parseInt(ini[0]);
-	let c0 = parseInt(ini[1]);
-	
-	let f1 = parseInt(fin[0]);
-	let c1 = parseInt(fin[1]);
-
 	console.log("ini: " + ini + "  fin: " + fin);
 	
 	let aux;
 	
-	if (f0 > f1){
-		aux = f0;f0 = f1;f1 = aux;
+	if (ini.fila > fin.fila){
+		aux = ini.fila;
+		ini.fila = fin.fila;
+		fin.fila = aux;
 	}  
-	if (c0 > c1){
-		aux = c0;c0 = c1;c1 = aux;	
-	}  
+	if (ini.col > fin.col){
+		aux = ini.col;
+		ini.col = fin.col;
+		fin.col= aux;
+	}    
 
-	for (let f = f0; f <= f1; f++){
-		for (let c = c0; c <= c1; c++){
-			marcarUnaCelda(getCelda(f, c));
+	for (let f = ini.fila; f <= fin.fila; f++){
+		for (let c = ini.col; c <= fin.col; c++){
+			marcarUnaCeldaFilaCol(f, c);
 		} 
 	} 
  }
