@@ -40,7 +40,33 @@ var celdaInicio;
  }
  
  function marcarBloqueCeldas(celdaInicio, celdaFin){
-	div.classList.add("roja");
+	let celdaActual;
+
+	//incremento fila y columna.
+	let incF = 1;
+	let incC = 1;
+	
+	//formato:fila_columna
+	let ini = celdaInicio.id.split("_");
+	let fin = celdaFin.id.split("_");
+	
+	console.log("ini: " + ini + "  fin: " + fin);
+	
+	let f0 = parseInt(ini[0]);
+	let c0 = parseInt(ini[1]);
+	let f1 = parseInt(fin[0]);
+	let c1 = parseInt(fin[1]);
+	
+	if (f0 > f1) incF = -1; 
+	if (c0 > c1) incC = -1;
+	
+	for (let f = f0; f != f1; f += incF){
+		for (let c = c0; c != c1; c += incC){
+			let idAct = f + "_" + c;
+			celdaActual = document.getElementById(idAct);
+			marcarUnaCelda(celdaActual);
+		} 
+	} 
  }
  
  
