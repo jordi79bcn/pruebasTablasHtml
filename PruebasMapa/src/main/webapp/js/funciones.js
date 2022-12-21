@@ -6,10 +6,10 @@ const MODO_INSERTAR_BLOQUE = 2;
 const TIPO_CASILLA_VACIA = 0;
 const TIPO_CASILLA_ROJA = 1;
 
-var modo = MODO_NADA;
-var tipoCasilla = TIPO_CASILLA_ROJA;
+let modo = MODO_NADA;
+let tipoCasilla = TIPO_CASILLA_ROJA;
 
-var celdaInicio;
+let celdaInicio;
 
 
  function clickCelda(event){
