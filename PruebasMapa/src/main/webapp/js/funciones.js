@@ -3,30 +3,31 @@
  */
 const CLICK_IZQUIERDO = 1;
 const MODO_NADA = 0;
-const MODO_INSERTAR = 1;
+const MODO_INSERTAR_UNA = 1;
+const MODO_INSERTAR_BLOQUE = 2;
 
 var modo = MODO_NADA;
 
- function clickCelda(idCelda){
+ function clickCelda(event){
 	if (modo == MODO_NADA)
-		modo = MODO_INSERTAR;
-	else if (modo == MODO_INSERTAR)
+		modo = MODO_INSERTAR_UNA;
+	else if (modo == MODO_INSERTAR_UNA)
 		modo = MODO_NADA;
 	else
 		alert("error! modo imposible: " + modo);
 		
-	marcarCelda(idCelda);
+	marcarCelda(event.target);
  }
  
  function entrarCelda(event){
 	 console.log(event.target.id);
-	 if (modo == MODO_INSERTAR){
-	 	marcarCelda(event.target.id);
+	 if (modo == MODO_INSERTAR_UNA){
+	 	marcarCelda(event.target);
 	 }
  }
  
- function marcarCelda(idCelda){
-	var div= document.getElementById(idCelda);
+ function marcarCelda(div){
+	//var div= document.getElementById(idCelda);
 	div.classList.add("roja");
  }
  

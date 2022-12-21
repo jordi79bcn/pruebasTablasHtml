@@ -29,7 +29,7 @@
 						<c:forEach var="i" begin="1" end="2500">
 							<div class="celda" id="<c:out value="${i}" />" 
 								onmouseenter="entrarCelda(event)"
-								onclick="clickCelda(<c:out value='${i}'/>)">
+								onclick="clickCelda(event)">
 							</div>
 						</c:forEach>
 					</div>
