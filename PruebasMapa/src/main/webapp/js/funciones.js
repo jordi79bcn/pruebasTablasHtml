@@ -21,6 +21,11 @@ class Celda {
   }
 }
 
+function initCeldas(){
+	//TODO funcion para crear el array inicial con toda la info de cada celda del grid (usa calse Celda)
+	
+}
+
  function clickCelda(event){
 	if (modo == MODO_NADA){
 		if (event.shiftKey){
@@ -80,6 +85,8 @@ class Celda {
  }
 
  function marcarUnaCelda(celda){
+	//TODO aqui habra que guardar esta celda en el array de celdas!
+	
 	if (tipoCasilla == TIPO_CASILLA_VACIA)
 		celda.className = "celda";
 	else if (tipoCasilla == TIPO_CASILLA_ROJA)
