@@ -1,6 +1,21 @@
 "use strict";
 
 
+class Modo {
+	static Nada  = new Modo("Nada")
+	static Insertar_una = new Modo("Insertar_una")
+	static Insertar_bloque = new Modo("Insertar_bloque")
+	
+	constructor(name) {
+		this.name = name
+	}
+	
+	toString(){
+		return "Modo: " + this.name;
+	}
+}
+
+
 // esta clase hace la funciond de "enum" y sirve para escoger el tipo de suelo 
 class Suelo {
 	static Rojo  = new Suelo("rojo")
@@ -32,10 +47,6 @@ class Mapa {
 	    this.#ultimasMarcadas = []; //array vacio, se usara para guardar las provisionales que se han marcado y poderlas desmarcar.
 
 	    this.#inicializar();
-
-		/*console.log("mapCeldas.size: " + this.#mapCeldas.size);
-		console.log("mapCeldas: " + this.#mapCeldas);
-		console.log("mapCeldas.get(3_3): " + this.#mapCeldas.get("3_3"));*/
 	}
   
 	#inicializar(){ //funcion privada (empieza por #)
@@ -54,13 +65,10 @@ class Mapa {
 	}
 	
 	#getCeldaPorID(idCelda){
-		console.log("getCeldaPorID: busco celda por id:" + idCelda);
 		return this.#mapCeldas.get(idCelda);
 	}
 	
 	marcarCelda(idCelda, suelo){
-		/*console.log("contenido de mapCeldas: " + this.#mapCeldas.size);
-		console.log("me piden marcar: " + idCelda);*/
 		this.#mapCeldas.get(idCelda).setSuelo(suelo);
 	}
 	
@@ -95,9 +103,6 @@ class Mapa {
 	#marcarBloqueCeldas(idCeldaInicio, idCeldaFin, suelo){
 		let ini = this.#getCeldaPorID(idCeldaInicio);
 		let fin = this.#getCeldaPorID(idCeldaFin);
-		
-		console.log("ini: " + ini);
-		console.log("fin: " + fin);
 		
 		// ---- todo esto de abajo es para recorrer el bucle de menor a mayor.
 		let f0 = ini.getFila();
