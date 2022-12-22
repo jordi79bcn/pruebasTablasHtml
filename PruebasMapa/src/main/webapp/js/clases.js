@@ -64,10 +64,10 @@ class Mapa {
 		this.#mapCeldas.get(idCelda).setSuelo(suelo);
 	}
 	
-	/*#desmarcar(){
+	#desmarcar(){
 		this.#ultimasMarcadas.forEach(idCelda => this.marcarCelda(idCelda, Suelo.Vacio));
 		this.#ultimasMarcadas.length = 0; //vaciamos el array, ya no hace falta.
-	}*/
+	}
 	
 	iniciarBloqueCeldas(idCelda, suelo){
 		this.#idCeldaInicioBloque = idCelda;
@@ -76,12 +76,23 @@ class Mapa {
 	
 	cerrarBloqueCeldas(idCelda){
 		this.#idCeldaFinBloque = idCelda;
-		this.marcarBloqueCeldas(this.#idCeldaInicioBloque, this.#idCeldaFinBloque, this.#sueloInicioBloque);
+		this.#desmarcar();
+		this.#marcarBloqueCeldas(this.#idCeldaInicioBloque, this.#idCeldaFinBloque, this.#sueloInicioBloque);
+		
+		//--- despues de cerrar, estos valores se resetean.
+		this.#idCeldaInicioBloque = -1;
+		this.#idCeldaFinBloque = -1;
+		this.#sueloInicioBloque = -1;
+
 	}
 	
-	marcarBloqueCeldas(idCeldaInicio, idCeldaFin, suelo){
-		//this.#desmarcar(); //esta funcion borrara si hay algnas marcadas provisionales. no se como ira esto con la eficiencia...
+	//recibe la celda de fin (provisional, puede actualizarse hasta que haga click por 2a vez.)
+	refrescarBloqueCeldas(idCeldaFinProvisional){
+		this.#desmarcar();
+		this.#ultimasMarcadas = this.#marcarBloqueCeldas(this.#idCeldaInicioBloque, idCeldaFinProvisional, this.#sueloInicioBloque);
+	}
 		
+	#marcarBloqueCeldas(idCeldaInicio, idCeldaFin, suelo){
 		let ini = this.#getCeldaPorID(idCeldaInicio);
 		let fin = this.#getCeldaPorID(idCeldaFin);
 		

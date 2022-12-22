@@ -9,7 +9,7 @@ const MODO_INSERTAR_BLOQUE = 2;
 let modo = MODO_NADA;
 let suelo = Suelo.Vacio;
 
-let celdaInicio;
+//let celdaInicio;
 const mapa = new Mapa(50, 50);
 
  function clickCelda(event){
@@ -18,7 +18,7 @@ const mapa = new Mapa(50, 50);
 		
 		if (event.ctrlKey){
 			modo = MODO_INSERTAR_BLOQUE;
-			celdaInicio = event.target;
+			//celdaInicio = event.target;
 			mapa.iniciarBloqueCeldas(event.target.id, suelo);
 		}
 		else{
@@ -44,6 +44,7 @@ const mapa = new Mapa(50, 50);
 	 	mapa.marcarCelda(event.target.id, suelo);
 	 }
 	 else if (modo == MODO_INSERTAR_BLOQUE){
-	 	//mapa.marcarBloqueCeldas(celdaInicio.id, event.target.id, suelo);
+	 	//mapa.refrescarBloqueCeldas(celdaInicio.id, event.target.id, suelo);
+	 	mapa.refrescarBloqueCeldas(event.target.id);
 	 }
  }
