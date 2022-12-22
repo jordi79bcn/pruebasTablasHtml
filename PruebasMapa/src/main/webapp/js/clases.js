@@ -26,7 +26,6 @@ class Suelo {
 		this.name = name
 	}
 }
-//FIXME cuando dibujas un segundo bloque se borra el primero!
 class Mapa {
 	#filas;
 	#columnas;
@@ -72,7 +71,8 @@ class Mapa {
 		this.#mapCeldas.get(idCelda).setSuelo(suelo);
 	}
 	
-	#desmarcar(){
+	#desmarcarUltimoBloque(){
+		//FIXME guarda dentro de celda el suelo anterior, para poder "deshacer" si por error haces un bloque encima de una zona ya dibujada.
 		this.#ultimasMarcadas.forEach(idCelda => this.marcarCelda(idCelda, Suelo.Vacio));
 		this.#ultimasMarcadas.length = 0; //vaciamos el array, ya no hace falta.
 	}
@@ -84,9 +84,10 @@ class Mapa {
 	
 	cerrarBloqueCeldas(idCelda){
 		this.#idCeldaFinBloque = idCelda;
-		this.#desmarcar();
+		this.#desmarcarUltimoBloque();// creo que aqui no hace falta, ya se borra en refrescar.
 		this.#marcarBloqueCeldas(this.#idCeldaInicioBloque, this.#idCeldaFinBloque, this.#sueloInicioBloque);
-		
+		this.#ultimasMarcadas.length = 0; //vaciamos el array, ya no hace falta.
+
 		//--- despues de cerrar, estos valores se resetean.
 		this.#idCeldaInicioBloque = -1;
 		this.#idCeldaFinBloque = -1;
@@ -96,7 +97,7 @@ class Mapa {
 	
 	//recibe la celda de fin (provisional, puede actualizarse hasta que haga click por 2a vez.)
 	refrescarBloqueCeldas(idCeldaFinProvisional){
-		this.#desmarcar();
+		this.#desmarcarUltimoBloque();
 		this.#ultimasMarcadas = this.#marcarBloqueCeldas(this.#idCeldaInicioBloque, idCeldaFinProvisional, this.#sueloInicioBloque);
 	}
 		
