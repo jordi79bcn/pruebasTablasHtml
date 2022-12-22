@@ -25,7 +25,7 @@ const mapa = new Mapa(50, 50);
 		}
 	}
 	else if (modo == MODO_INSERTAR_UNA || modo == MODO_INSERTAR_BLOQUE){
-		modo = MODO_NADA;
+		modo = MODO_NADA;//FIXME creo que aqui va el detectar 2o click para cerrar bloque. (problema se birra 1er bloque)
 	}
 	else{
 		alert("error! modo imposible: " + modo);

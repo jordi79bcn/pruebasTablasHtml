@@ -11,7 +11,7 @@ class Suelo {
 		this.name = name
 	}
 }
-
+//FIXME cuando dibujas un segundo bloque se borra el primero!
 class Mapa {
 	#filas;
 	#columnas;
@@ -40,7 +40,7 @@ class Mapa {
 			for (let c = 0; c < this.#columnas; c++){
 				let celda = new Celda(f, c);
 				this.#arrayCeldas[f][c] = celda;
-				this.#mapCeldas.set(celda.getDivID().toString(), celda);//FIXME porqué se guarda la celda pero al salie mapCeldas es vacio?
+				this.#mapCeldas.set(celda.getDivID().toString(), celda);
 			}
 		}
 	}
