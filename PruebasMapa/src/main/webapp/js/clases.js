@@ -72,8 +72,6 @@ class Mapa {
 	}
 
 	#desmarcarUltimoBloque() {
-		//FIXME guarda dentro de celda el suelo anterior, para poder "deshacer" si por error haces un bloque encima de una zona ya dibujada.
-		//this.#ultimasMarcadas.forEach(idCelda => this.marcarCelda(idCelda, Suelo.Vacio));
 		this.#ultimasMarcadas.forEach(idCelda => this.#getCeldaPorID(idCelda).deshacerSuelo());
 		this.#ultimasMarcadas.length = 0; //vaciamos el array, ya no hace falta.
 	}
@@ -188,14 +186,26 @@ class Celda {
 	}
 
 	setSuelo(suelo) {
-		let ok = true;
-		//FIXME posible fuente de problemas: Si usas .add roja y .add verde solo se vera roja! 
+		let ok = true;		 
+		let list = this.#getDiv().classList;
+		
+		//-- cuando esté bien probado se puede eliminar esto:-------------------
+		if (list[0] != "celda"){
+			alert("error: el estilo debe ser 'celda' en " + this.getDivID());
+		}
+		if (list.length < 2){
+			alert("error: el estilo debe ser 'celda' y algo más en " + this.getDivID());
+		}
+		//---------------------------------------------------------------
+		
+		let classAnterior = list[1]; //la 0 será "celda" y la 1 "vacia", "roja"... etc
+		
 		if (suelo == Suelo.Vacio)
-			this.#getDiv().className = "celda";
+			list.replace(classAnterior, "vacia");
 		else if (suelo == Suelo.Rojo)
-			this.#getDiv().classList.add("roja");
+			list.replace(classAnterior, "roja");
 		else if (suelo == Suelo.Verde)
-			this.#getDiv().classList.add("verde");
+			list.replace(classAnterior, "verde");
 		else {
 			alert("suelo imposible: " + suelo);
 			ok = false;

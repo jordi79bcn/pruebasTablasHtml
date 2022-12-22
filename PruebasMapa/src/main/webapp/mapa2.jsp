@@ -29,7 +29,7 @@
 					<div class="grid" style="height:100%">
 						<c:forEach var="numFila" begin="1" end="50">
 							<c:forEach var="numColumna" begin="1" end="50">
-								<div class="celda" id='<c:out value="${numFila}_${numColumna}" />' 
+								<div class="celda vacia" id='<c:out value="${numFila}_${numColumna}" />' 
 									onmouseenter="entrarCelda(event)"
 									onclick="clickCelda(event)">
 								</div>
