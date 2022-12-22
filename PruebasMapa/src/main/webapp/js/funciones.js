@@ -3,11 +3,8 @@ const MODO_NADA = 0;
 const MODO_INSERTAR_UNA = 1;
 const MODO_INSERTAR_BLOQUE = 2;
 
-const TIPO_CASILLA_VACIA = 0;
-const TIPO_CASILLA_ROJA = 1;
-
 let modo = MODO_NADA;
-let suelo = TIPO_CASILLA_ROJA;
+let suelo = Suelo.Vacio;
 
 let celdaInicio;
 const mapa = new Mapa(50, 50);
@@ -31,14 +28,14 @@ const mapa = new Mapa(50, 50);
 		alert("error! modo imposible: " + modo);
 	}
 		
-	mapa.marcarCelda(event.target.id);
+	mapa.marcarCelda(event.target.id, suelo);
  }
  
  function entrarCelda(event){
 	 if (modo == MODO_INSERTAR_UNA){
-	 	mapa.marcarCelda(event.target.id);
+	 	mapa.marcarCelda(event.target.id, suelo);
 	 }
 	 else if (modo == MODO_INSERTAR_BLOQUE){
-	 	mapa.marcarBloqueCeldas(celdaInicio.id, event.target.id);
+	 	mapa.marcarBloqueCeldas(celdaInicio.id, event.target.id, suelo);
 	 }
  }

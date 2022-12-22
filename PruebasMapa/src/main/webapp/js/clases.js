@@ -49,13 +49,13 @@ class Mapa {
 		return this.#mapCeldas.get(idCelda);
 	}
 	
-	marcarCelda(idCelda){
+	marcarCelda(idCelda, suelo){
 		/*console.log("contenido de mapCeldas: " + this.#mapCeldas.size);
 		console.log("me piden marcar: " + idCelda);*/
-		this.#mapCeldas.get(idCelda).setSuelo(Suelo.Rojo);
+		this.#mapCeldas.get(idCelda).setSuelo(suelo);
 	}
 	
-	marcarBloqueCeldas(idCeldaInicio, idCeldaFin){
+	marcarBloqueCeldas(idCeldaInicio, idCeldaFin, suelo){
 		let ini = this.#getCeldaPorID(idCeldaInicio);
 		let fin = this.#getCeldaPorID(idCeldaFin);
 		
@@ -81,7 +81,7 @@ class Mapa {
 		
 		for (let f = f0; f <= f1; f ++){
 			for (let c = c0; c <= c1; c++){
-		 		this.#getCeldaFilaCol(f, c).setSuelo(Suelo.Rojo);
+		 		this.#getCeldaFilaCol(f, c).setSuelo(suelo);
 			} 
 		}
 	} 
