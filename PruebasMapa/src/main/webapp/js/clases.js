@@ -2,15 +2,15 @@
 
 
 class Modo {
-	static Nada  = new Modo("Nada")
+	static Nada = new Modo("Nada")
 	static Insertar_una = new Modo("Insertar_una")
 	static Insertar_bloque = new Modo("Insertar_bloque")
-	
+
 	constructor(name) {
 		this.name = name
 	}
-	
-	toString(){
+
+	toString() {
 		return "Modo: " + this.name;
 	}
 }
@@ -18,10 +18,10 @@ class Modo {
 
 // esta clase hace la funciond de "enum" y sirve para escoger el tipo de suelo 
 class Suelo {
-	static Rojo  = new Suelo("rojo")
+	static Rojo = new Suelo("rojo")
 	static Verde = new Suelo("verde")
 	static Vacio = new Suelo("vacio")
-	
+
 	constructor(name) {
 		this.name = name
 	}
@@ -38,51 +38,52 @@ class Mapa {
 
 
 	constructor(filas, columnas) {
-	    this.#filas = filas;
-	    this.#columnas = columnas;
-	    this.#arrayCeldas = new Array(filas);
-	    //this.#mapCeldas = new Array(filas*columnas);
-	    this.#mapCeldas = new Map();
-	    this.#ultimasMarcadas = []; //array vacio, se usara para guardar las provisionales que se han marcado y poderlas desmarcar.
+		this.#filas = filas;
+		this.#columnas = columnas;
+		this.#arrayCeldas = new Array(filas);
+		//this.#mapCeldas = new Array(filas*columnas);
+		this.#mapCeldas = new Map();
+		this.#ultimasMarcadas = []; //array vacio, se usara para guardar las provisionales que se han marcado y poderlas desmarcar.
 
-	    this.#inicializar();
+		this.#inicializar();
 	}
-  
-	#inicializar(){ //funcion privada (empieza por #)
-		for (let f = 0; f < this.#filas; f++){
+
+	#inicializar() { //funcion privada (empieza por #)
+		for (let f = 0; f < this.#filas; f++) {
 			this.#arrayCeldas[f] = new Array(this.#columnas);
-			for (let c = 0; c < this.#columnas; c++){
+			for (let c = 0; c < this.#columnas; c++) {
 				let celda = new Celda(f, c);
 				this.#arrayCeldas[f][c] = celda;
 				this.#mapCeldas.set(celda.getDivID().toString(), celda);
 			}
 		}
 	}
-	
-	#getCeldaFilaCol(fila, col){
+
+	#getCeldaFilaCol(fila, col) {
 		return this.#arrayCeldas[fila][col];
 	}
-	
-	#getCeldaPorID(idCelda){
+
+	#getCeldaPorID(idCelda) {
 		return this.#mapCeldas.get(idCelda);
 	}
-	
-	marcarCelda(idCelda, suelo){
+
+	marcarCelda(idCelda, suelo) {
 		this.#mapCeldas.get(idCelda).setSuelo(suelo);
 	}
-	
-	#desmarcarUltimoBloque(){
+
+	#desmarcarUltimoBloque() {
 		//FIXME guarda dentro de celda el suelo anterior, para poder "deshacer" si por error haces un bloque encima de una zona ya dibujada.
-		this.#ultimasMarcadas.forEach(idCelda => this.marcarCelda(idCelda, Suelo.Vacio));
+		//this.#ultimasMarcadas.forEach(idCelda => this.marcarCelda(idCelda, Suelo.Vacio));
+		this.#ultimasMarcadas.forEach(idCelda => this.#getCeldaPorID(idCelda).deshacerSuelo());
 		this.#ultimasMarcadas.length = 0; //vaciamos el array, ya no hace falta.
 	}
-	
-	iniciarBloqueCeldas(idCelda, suelo){
+
+	iniciarBloqueCeldas(idCelda, suelo) {
 		this.#idCeldaInicioBloque = idCelda;
 		this.#sueloInicioBloque = suelo;
 	}
-	
-	cerrarBloqueCeldas(idCelda){
+
+	cerrarBloqueCeldas(idCelda) {
 		this.#idCeldaFinBloque = idCelda;
 		this.#desmarcarUltimoBloque();// creo que aqui no hace falta, ya se borra en refrescar.
 		this.#marcarBloqueCeldas(this.#idCeldaInicioBloque, this.#idCeldaFinBloque, this.#sueloInicioBloque);
@@ -94,50 +95,50 @@ class Mapa {
 		this.#sueloInicioBloque = -1;
 
 	}
-	
+
 	//recibe la celda de fin (provisional, puede actualizarse hasta que haga click por 2a vez.)
-	refrescarBloqueCeldas(idCeldaFinProvisional){
+	refrescarBloqueCeldas(idCeldaFinProvisional) {
 		this.#desmarcarUltimoBloque();
 		this.#ultimasMarcadas = this.#marcarBloqueCeldas(this.#idCeldaInicioBloque, idCeldaFinProvisional, this.#sueloInicioBloque);
 	}
-		
-	#marcarBloqueCeldas(idCeldaInicio, idCeldaFin, suelo){
+
+	#marcarBloqueCeldas(idCeldaInicio, idCeldaFin, suelo) {
 		let ini = this.#getCeldaPorID(idCeldaInicio);
 		let fin = this.#getCeldaPorID(idCeldaFin);
-		
+
 		// ---- todo esto de abajo es para recorrer el bucle de menor a mayor.
 		let f0 = ini.getFila();
 		let c0 = ini.getColumna();
-		
+
 		let f1 = fin.getFila();
 		let c1 = fin.getColumna();
-		
-		if (ini.getFila() > fin.getFila()){
+
+		if (ini.getFila() > fin.getFila()) {
 			f0 = fin.getFila();
 			f1 = ini.getFila();
-		}  
-		if (ini.getColumna() > fin.getColumna()){
+		}
+		if (ini.getColumna() > fin.getColumna()) {
 			c0 = fin.getColumna();
 			c1 = ini.getColumna();
-		}  
-		//-----------------------------------------------------------------
-		
-		let celda;
-		
-		for (let f = f0; f <= f1; f ++){
-			for (let c = c0; c <= c1; c++){
-		 		celda = this.#getCeldaFilaCol(f, c);
-		 		celda.setSuelo(suelo);
-		 		this.#ultimasMarcadas.push(celda.getDivID()); 
-			} 
 		}
-		
+		//-----------------------------------------------------------------
+
+		let celda;
+
+		for (let f = f0; f <= f1; f++) {
+			for (let c = c0; c <= c1; c++) {
+				celda = this.#getCeldaFilaCol(f, c);
+				celda.setSuelo(suelo);
+				this.#ultimasMarcadas.push(celda.getDivID());
+			}
+		}
+
 		return this.#ultimasMarcadas;
-	} 
-	
+	}
+
 	toString() {
-		for (let f = 0; f < this.#filas; f++){
-			for (let c = 0; c < this.#columnas; c++){
+		for (let f = 0; f < this.#filas; f++) {
+			for (let c = 0; c < this.#columnas; c++) {
 				console.log(this.#arrayCeldas[f][c]);
 			}
 		}
@@ -148,64 +149,70 @@ class Celda {
 	#fila;
 	#columna;
 	#suelo;
+	#sueloAnterior; //aqui guardamos el anterior al hacer setSuelo
 	#divID;
 	#div; //recuerda no usar div, mejor getDiv! Puede no haberse cargado!
-	
-  constructor(fila, columna) {
-    this.#fila = fila;
-    this.#columna = columna;
-    this.#divID = fila + "_" + columna; //montamos el id a partir de la fila y col.
-   	this.#suelo = Suelo.Vacio; //si no nos dicen nada, está vacío
-  }
-  
-  getFila(){
-	  return this.#fila;
-  }
-  
-  getColumna(){
-	  return this.#columna;
-  }  
-  
-  getSuelo(){
-	  return this.#suelo;
-  }
-  
-  //se usa para obtener el div al que hace referencia este objeto celda
-  getDivID(){
-    return this.#divID;
-  }
-  
-  #getDiv(){
-    //si no esta asignada la variable, lo hacemos
-    if (!this.#div){
-	    this.#div = document.getElementById(this.#divID); //el div representa la celda del grid
-	}
-	
-	return this.#div;
-  }
-  
-  setSuelo(suelo){
-	let ok = true;
-	//FIXME posible fuente de problemas: Si usas .add roja y .add verde solo se vera roja! 
-	if (suelo == Suelo.Vacio)
-		this.#getDiv().className = "celda";
-	else if (suelo == Suelo.Rojo)
-		this.#getDiv().classList.add("roja");
-	else if (suelo == Suelo.Verde)
-		this.#getDiv().classList.add("verde");
-	else{
-		alert("suelo imposible: " + suelo);
-		ok = false;
-	}
-	
-	//solo asignamos el suelo si es correcto.
-	if (ok){
-		this.#suelo = suelo; 
-	}
- }
 
-  
-  toString() {
-    return `Celda (${this.#fila}, ${this.#columna})`;
-  }
+	constructor(fila, columna) {
+		this.#fila = fila;
+		this.#columna = columna;
+		this.#divID = fila + "_" + columna; //montamos el id a partir de la fila y col.
+		this.#suelo = Suelo.Vacio; //si no nos dicen nada, está vacío
+		this.#sueloAnterior = Suelo.Vacio; //si no nos dicen nada, está vacío
+	}
+
+	getFila() {
+		return this.#fila;
+	}
+
+	getColumna() {
+		return this.#columna;
+	}
+
+	getSuelo() {
+		return this.#suelo;
+	}
+
+	//se usa para obtener el div al que hace referencia este objeto celda
+	getDivID() {
+		return this.#divID;
+	}
+
+	#getDiv() {
+		//si no esta asignada la variable, lo hacemos
+		if (!this.#div) {
+			this.#div = document.getElementById(this.#divID); //el div representa la celda del grid
+		}
+
+		return this.#div;
+	}
+
+	setSuelo(suelo) {
+		let ok = true;
+		//FIXME posible fuente de problemas: Si usas .add roja y .add verde solo se vera roja! 
+		if (suelo == Suelo.Vacio)
+			this.#getDiv().className = "celda";
+		else if (suelo == Suelo.Rojo)
+			this.#getDiv().classList.add("roja");
+		else if (suelo == Suelo.Verde)
+			this.#getDiv().classList.add("verde");
+		else {
+			alert("suelo imposible: " + suelo);
+			ok = false;
+		}
+
+		//solo asignamos el suelo si es correcto.
+		if (ok) {
+			this.#sueloAnterior = this.#suelo;
+			this.#suelo = suelo;			
+		}
+	}
+
+	deshacerSuelo() {
+		this.setSuelo(this.#sueloAnterior);
+	}
+
+	toString() {
+		return `Celda (${this.#fila}, ${this.#columna})`;
+	}
 }
