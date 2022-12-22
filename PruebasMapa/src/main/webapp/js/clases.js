@@ -18,52 +18,66 @@ class Mapa {
 	constructor(filas, columnas) {
 	    this.#filas = filas;
 	    this.#columnas = columnas;
-	    this.#arrayCeldas = [];
-	    this.#mapCeldas = [];
+	    this.#arrayCeldas = new Array(filas);
+	    //this.#mapCeldas = new Array(filas*columnas);
+	    this.#mapCeldas = new Map();
+
 	    this.#inicializar();
+
+		console.log("mapCeldas.size: " + this.#mapCeldas.size);
+		console.log("mapCeldas: " + this.#mapCeldas);
+		console.log("mapCeldas.get(3_3): " + this.#mapCeldas.get("3_3"));
 	}
   
 	#inicializar(){ //funcion privada (empieza por #)
 		for (let f = 0; f < this.#filas; f++){
-			this.#arrayCeldas[f] = [];
+			this.#arrayCeldas[f] = new Array(this.#columnas);
 			for (let c = 0; c < this.#columnas; c++){
 				let celda = new Celda(f, c);
 				this.#arrayCeldas[f][c] = celda;
-				this.#mapCeldas[celda.getDivID()] = celda;
+				this.#mapCeldas.set(celda.getDivID().toString(), celda);//FIXME porqué se guarda la celda pero al salie mapCeldas es vacio?
 			}
 		}
 	}
 	
-	getCeldaFilaCol(fila, col){
+	#getCeldaFilaCol(fila, col){
 		return this.#arrayCeldas[fila][col];
 	}
 	
-	getCeldaPorID(idCelda){
-		return this.#mapCeldas[idCelda];
+	#getCeldaPorID(idCelda){
+		return this.#mapCeldas.get(idCelda);
+	}
+	
+	marcarCelda(idCelda){
+		/*console.log("contenido de mapCeldas: " + this.#mapCeldas.size);
+		console.log("me piden marcar: " + idCelda);*/
+		this.#mapCeldas.get(idCelda).setSuelo(Suelo.Rojo);
 	}
 	
 	marcarBloqueCeldas(celdaInicio, celdaFin){
-		let ini = getCeldaPorID(celdaInicio.id);
-		let fin = getCeldaPorID(celdaFin.id);
+		let ini = this.#getCeldaPorID(celdaInicio.id);
+		let fin = this.#getCeldaPorID(celdaFin.id);
 		
 		console.log("ini: " + ini + "  fin: " + fin);
 		
-		let aux;
+		let inc_fila = 1;
+		let inc_col  = 1;
 		
-		if (ini.fila > fin.fila){
-			aux = ini.fila;
-			ini.fila = fin.fila;
-			fin.fila = aux;
+		let numFilas = ini.fila - fin.fila;
+		let numCols  = ini.col  - fin.col;
+		
+		if (numFilas < 0){
+			inc_fila = -1;
+			numFilas *= -1; //lo dejamos en positivo
 		}  
-		if (ini.col > fin.col){
-			aux = ini.col;
-			ini.col = fin.col;
-			fin.col= aux;
-		}    
+		if (numCols < 0){
+			inc_col = -1;
+			numCols *= -1; //lo dejamos en positivo
+		}  
 	
-		for (let f = ini.fila; f <= fin.fila; f++){
-			for (let c = ini.col; c <= fin.col; c++){
-		 		getCeldaFilaCol(f, c).setSuelo(Suelo.Rojo);
+		for (let f = 0; f <= numFilas; f += inc_fila){
+			for (let c = 0; c <= numCols; c += inc_col){
+		 		getCeldaFilaCol(f + ini.fila, c + ini.col).setSuelo(Suelo.Rojo);
 			} 
 		}
 	} 
@@ -81,13 +95,13 @@ class Celda {
 	#fila;
 	#columna;
 	#suelo;
-
+	#divID;
+	#div; //recuerda no usar div, mejor getDiv! Puede no haberse cargado!
 	
   constructor(fila, columna) {
     this.#fila = fila;
     this.#columna = columna;
-    this.#divID = `(${this.#fila}_${this.#columna})`; //montamos el id a partir de la fila y col.
-    this.#div = document.getElementById(this.#divID); //el div representa la celda del grid
+    this.#divID = fila + "_" + columna; //montamos el id a partir de la fila y col.
    	this.#suelo = Suelo.Vacio; //si no nos dicen nada, está vacío
   }
   
@@ -108,13 +122,22 @@ class Celda {
     return this.#divID;
   }
   
+  #getDiv(){
+    //si no esta asignada la variable, lo hacemos
+    if (!this.#div){
+	    this.#div = document.getElementById(this.#divID); //el div representa la celda del grid
+	}
+	
+	return this.#div;
+  }
+  
   setSuelo(suelo){
 	let ok = true;
 	
 	if (suelo == Suelo.Vacio)
-		this.#div.className = "celda";
+		this.#getDiv().className = "celda";
 	else if (suelo == Suelo.Rojo)
-		this.#div.classList.add("roja");
+		this.#getDiv().classList.add("roja");
 	else{
 		alert("suelo imposible: " + suelo);
 		ok = false;
