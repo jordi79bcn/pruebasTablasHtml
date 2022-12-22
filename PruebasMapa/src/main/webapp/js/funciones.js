@@ -1,3 +1,6 @@
+"use strict";
+
+
 const CLICK_IZQUIERDO = 1;
 const MODO_NADA = 0;
 const MODO_INSERTAR_UNA = 1;

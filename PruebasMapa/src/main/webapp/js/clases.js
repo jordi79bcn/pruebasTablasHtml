@@ -1,3 +1,6 @@
+"use strict";
+
+
 // esta clase hace la funciond de "enum" y sirve para escoger el tipo de suelo 
 class Suelo {
 	static Rojo  = new Suelo("rojo")
@@ -14,19 +17,21 @@ class Mapa {
 	#columnas;
 	#arrayCeldas; //para almacenar celdas en formato fila-columna. va bien para seleccin de bloque
 	#mapCeldas; //para almacenar celdas por su id. Mucho más rápido acceder a cada casilla!
-	 
+	#ultimasMarcadas;
+
 	constructor(filas, columnas) {
 	    this.#filas = filas;
 	    this.#columnas = columnas;
 	    this.#arrayCeldas = new Array(filas);
 	    //this.#mapCeldas = new Array(filas*columnas);
 	    this.#mapCeldas = new Map();
+	    this.#ultimasMarcadas = []; //array vacio, se usara para guardar las provisionales que se han marcado y poderlas desmarcar.
 
 	    this.#inicializar();
 
-		console.log("mapCeldas.size: " + this.#mapCeldas.size);
+		/*console.log("mapCeldas.size: " + this.#mapCeldas.size);
 		console.log("mapCeldas: " + this.#mapCeldas);
-		console.log("mapCeldas.get(3_3): " + this.#mapCeldas.get("3_3"));
+		console.log("mapCeldas.get(3_3): " + this.#mapCeldas.get("3_3"));*/
 	}
   
 	#inicializar(){ //funcion privada (empieza por #)
@@ -55,7 +60,14 @@ class Mapa {
 		this.#mapCeldas.get(idCelda).setSuelo(suelo);
 	}
 	
+	#desmarcar(){
+		this.#ultimasMarcadas.forEach(idCelda => this.marcarCelda(idCelda, Suelo.Vacio));
+		this.#ultimasMarcadas.length = 0; //vaciamos el array, ya no hace falta.
+	}
+	
 	marcarBloqueCeldas(idCeldaInicio, idCeldaFin, suelo){
+		this.#desmarcar(); //esta funcion borrara si hay algnas marcadas provisionales. no se como ira esto con la eficiencia...
+		
 		let ini = this.#getCeldaPorID(idCeldaInicio);
 		let fin = this.#getCeldaPorID(idCeldaFin);
 		
@@ -79,11 +91,17 @@ class Mapa {
 		}  
 		//-----------------------------------------------------------------
 		
+		let celda;
+		
 		for (let f = f0; f <= f1; f ++){
 			for (let c = c0; c <= c1; c++){
-		 		this.#getCeldaFilaCol(f, c).setSuelo(suelo);
+		 		celda = this.#getCeldaFilaCol(f, c);
+		 		celda.setSuelo(suelo);
+		 		this.#ultimasMarcadas.push(celda.getDivID()); 
 			} 
 		}
+		
+		return this.#ultimasMarcadas;
 	} 
 	
 	toString() {
@@ -137,11 +155,13 @@ class Celda {
   
   setSuelo(suelo){
 	let ok = true;
-	
+	//FIXME posible fuente de problemas: Si usas .add roja y .add verde solo se vera roja! 
 	if (suelo == Suelo.Vacio)
 		this.#getDiv().className = "celda";
 	else if (suelo == Suelo.Rojo)
 		this.#getDiv().classList.add("roja");
+	else if (suelo == Suelo.Verde)
+		this.#getDiv().classList.add("verde");
 	else{
 		alert("suelo imposible: " + suelo);
 		ok = false;
