@@ -7,20 +7,14 @@ const TIPO_CASILLA_VACIA = 0;
 const TIPO_CASILLA_ROJA = 1;
 
 let modo = MODO_NADA;
-let tipoCasilla = TIPO_CASILLA_ROJA;
+let suelo = TIPO_CASILLA_ROJA;
 
 let celdaInicio;
 const mapa = new Mapa(50, 50);
-//console.log(mapa.toString());
 
  function clickCelda(event){
 	if (modo == MODO_NADA){
-		if (event.shiftKey){
-			tipoCasilla = TIPO_CASILLA_VACIA;
-		}
-		else{
-			tipoCasilla = TIPO_CASILLA_ROJA;
-		}
+		suelo = event.shiftKey?Suelo.Vacio:Suelo.Rojo;
 		
 		if (event.ctrlKey){
 			modo = MODO_INSERTAR_BLOQUE;
@@ -37,75 +31,14 @@ const mapa = new Mapa(50, 50);
 		alert("error! modo imposible: " + modo);
 	}
 		
-	marcarUnaCelda(event.target);
+	mapa.marcarCelda(event.target.id);
  }
  
  function entrarCelda(event){
 	 if (modo == MODO_INSERTAR_UNA){
-	 	marcarUnaCelda(event.target);
+	 	mapa.marcarCelda(event.target.id);
 	 }
 	 else if (modo == MODO_INSERTAR_BLOQUE){
-	 	marcarBloqueCeldas(celdaInicio, event.target);
+	 	mapa.marcarBloqueCeldas(celdaInicio.id, event.target.id);
 	 }
  }
- 
-  function getCelda(fila, columna){
-	let idAct = fila + "_" + columna;
-	
-	let celda= document.getElementById(idAct);
-
-	return celda;		
- }
- 
-  function getFilaColumna(celda){
-	if (celda.id.indexOf("_") == -1){
-		alert("id incorrecto! " + celda.id);
-	}
-	
-	let datos = celda.id.split("_");
-	let coord = {};
-	
-	coord.fila = parseInt(datos[0]);
-	coord.col = parseInt(datos[1]);
-	
-	return coord;		
- }
-
- function marcarUnaCelda(celda){
-	//TODO aqui habra que guardar esta celda en el array de celdas!
-	
-	if (tipoCasilla == TIPO_CASILLA_VACIA)
-		celda.className = "celda";
-	else if (tipoCasilla == TIPO_CASILLA_ROJA)
-		celda.classList.add("roja");
-	else
-		alert("tipo casilla imposible: " + tipoCasilla);
- }
- 
- function marcarBloqueCeldas(celdaInicio, celdaFin){
-	//formato:fila_columna
-	let ini = getFilaColumna(celdaInicio);
-	let fin = getFilaColumna(celdaFin);
-	
-	console.log("ini: " + ini + "  fin: " + fin);
-	
-	let aux;
-	
-	if (ini.fila > fin.fila){
-		aux = ini.fila;
-		ini.fila = fin.fila;
-		fin.fila = aux;
-	}  
-	if (ini.col > fin.col){
-		aux = ini.col;
-		ini.col = fin.col;
-		fin.col= aux;
-	}    
-
-	for (let f = ini.fila; f <= fin.fila; f++){
-		for (let c = ini.col; c <= fin.col; c++){
-	 		marcarUnaCelda(getCelda(f, c));
-		} 
-	} 
- }
- 
