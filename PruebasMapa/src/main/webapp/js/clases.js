@@ -45,6 +45,7 @@ class Mapa {
 	}
 	
 	#getCeldaPorID(idCelda){
+		console.log("getCeldaPorID: busco celda por id:" + idCelda);
 		return this.#mapCeldas.get(idCelda);
 	}
 	
@@ -54,30 +55,33 @@ class Mapa {
 		this.#mapCeldas.get(idCelda).setSuelo(Suelo.Rojo);
 	}
 	
-	marcarBloqueCeldas(celdaInicio, celdaFin){
-		let ini = this.#getCeldaPorID(celdaInicio.id);
-		let fin = this.#getCeldaPorID(celdaFin.id);
+	marcarBloqueCeldas(idCeldaInicio, idCeldaFin){
+		let ini = this.#getCeldaPorID(idCeldaInicio);
+		let fin = this.#getCeldaPorID(idCeldaFin);
 		
-		console.log("ini: " + ini + "  fin: " + fin);
+		console.log("ini: " + ini);
+		console.log("fin: " + fin);
 		
-		let inc_fila = 1;
-		let inc_col  = 1;
+		// ---- todo esto de abajo es para recorrer el bucle de menor a mayor.
+		let f0 = ini.getFila();
+		let c0 = ini.getColumna();
 		
-		let numFilas = ini.fila - fin.fila;
-		let numCols  = ini.col  - fin.col;
+		let f1 = fin.getFila();
+		let c1 = fin.getColumna();
 		
-		if (numFilas < 0){
-			inc_fila = -1;
-			numFilas *= -1; //lo dejamos en positivo
+		if (ini.getFila() > fin.getFila()){
+			f0 = fin.getFila();
+			f1 = ini.getFila();
 		}  
-		if (numCols < 0){
-			inc_col = -1;
-			numCols *= -1; //lo dejamos en positivo
+		if (ini.getColumna() > fin.getColumna()){
+			c0 = fin.getColumna();
+			c1 = ini.getColumna();
 		}  
-	
-		for (let f = 0; f <= numFilas; f += inc_fila){
-			for (let c = 0; c <= numCols; c += inc_col){
-		 		getCeldaFilaCol(f + ini.fila, c + ini.col).setSuelo(Suelo.Rojo);
+		//-----------------------------------------------------------------
+		
+		for (let f = f0; f <= f1; f ++){
+			for (let c = c0; c <= c1; c++){
+		 		this.#getCeldaFilaCol(f, c).setSuelo(Suelo.Rojo);
 			} 
 		}
 	} 
