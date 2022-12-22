@@ -18,6 +18,10 @@ class Mapa {
 	#arrayCeldas; //para almacenar celdas en formato fila-columna. va bien para seleccin de bloque
 	#mapCeldas; //para almacenar celdas por su id. Mucho más rápido acceder a cada casilla!
 	#ultimasMarcadas;
+	#idCeldaInicioBloque; //1a celda seleccionada en un bloque
+	#idCeldaFinBloque; //2a celda seleccionada en un bloque (cierre)
+	#sueloInicioBloque; //el suelo a dibujar en ese bloque. Puede ser util si usamos un color para optimizar.
+
 
 	constructor(filas, columnas) {
 	    this.#filas = filas;
@@ -60,13 +64,23 @@ class Mapa {
 		this.#mapCeldas.get(idCelda).setSuelo(suelo);
 	}
 	
-	#desmarcar(){
+	/*#desmarcar(){
 		this.#ultimasMarcadas.forEach(idCelda => this.marcarCelda(idCelda, Suelo.Vacio));
 		this.#ultimasMarcadas.length = 0; //vaciamos el array, ya no hace falta.
+	}*/
+	
+	iniciarBloqueCeldas(idCelda, suelo){
+		this.#idCeldaInicioBloque = idCelda;
+		this.#sueloInicioBloque = suelo;
+	}
+	
+	cerrarBloqueCeldas(idCelda){
+		this.#idCeldaFinBloque = idCelda;
+		this.marcarBloqueCeldas(this.#idCeldaInicioBloque, this.#idCeldaFinBloque, this.#sueloInicioBloque);
 	}
 	
 	marcarBloqueCeldas(idCeldaInicio, idCeldaFin, suelo){
-		this.#desmarcar(); //esta funcion borrara si hay algnas marcadas provisionales. no se como ira esto con la eficiencia...
+		//this.#desmarcar(); //esta funcion borrara si hay algnas marcadas provisionales. no se como ira esto con la eficiencia...
 		
 		let ini = this.#getCeldaPorID(idCeldaInicio);
 		let fin = this.#getCeldaPorID(idCeldaFin);

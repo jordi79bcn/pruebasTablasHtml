@@ -19,26 +19,31 @@ const mapa = new Mapa(50, 50);
 		if (event.ctrlKey){
 			modo = MODO_INSERTAR_BLOQUE;
 			celdaInicio = event.target;
+			mapa.iniciarBloqueCeldas(event.target.id, suelo);
 		}
 		else{
 			modo = MODO_INSERTAR_UNA;
+			mapa.marcarCelda(event.target.id, suelo);
 		}
 	}
-	else if (modo == MODO_INSERTAR_UNA || modo == MODO_INSERTAR_BLOQUE){
-		modo = MODO_NADA;//FIXME creo que aqui va el detectar 2o click para cerrar bloque. (problema se birra 1er bloque)
+	else if (modo == MODO_INSERTAR_UNA){
+		modo = MODO_NADA;
+		mapa.marcarCelda(event.target.id, suelo);
+	}
+	else if (modo == MODO_INSERTAR_BLOQUE){
+		modo = MODO_NADA;
+		mapa.cerrarBloqueCeldas(event.target.id);
 	}
 	else{
 		alert("error! modo imposible: " + modo);
 	}
-		
-	mapa.marcarCelda(event.target.id, suelo);
- }
+}
  
  function entrarCelda(event){
 	 if (modo == MODO_INSERTAR_UNA){
 	 	mapa.marcarCelda(event.target.id, suelo);
 	 }
 	 else if (modo == MODO_INSERTAR_BLOQUE){
-	 	mapa.marcarBloqueCeldas(celdaInicio.id, event.target.id, suelo);
+	 	//mapa.marcarBloqueCeldas(celdaInicio.id, event.target.id, suelo);
 	 }
  }
