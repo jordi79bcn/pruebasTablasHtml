@@ -47,17 +47,30 @@ function entrarCelda(event) {
 
 //--------------- funciones para los botones ---------------------------------
 
+//esta funcion solo funcionará si el botón en cuestión tiene la clase btnApagado, y pertenece a un "padre" que contiene a todos los botones de su grupo.  
+function encender(boton){
+	
+	//apagar los otros botones en este div que están encendidos. El div se saca del padre (parentNode)
+	//TODO porque no funciona con querySelector (sin el all) ni con .w3-button.btnEncendido?
+	boton.parentNode.querySelectorAll('.btnEncendido').forEach(elem=>{
+		elem.classList.replace("btnEncendido", "btnApagado");
+	})
+	
+	//ahora encender este boton
+	boton.classList.replace("btnApagado", "btnEncendido");
+}
+
 function botonAnadir(event){
-	//alert('botonAnadir');
-	let list = event.target.classList;
-	list.replace("btnApagado", "btnEncendido");    // Devuelve `false` (no existe la clase warning)
+	encender(event.target);
 }
 
 function botonBorrar(event){
-	alert('botonBorrar');
+	encender(event.target);
 }
 
 function botonSel(event, tipoSel){
+	encender(event.target);
+
 	//una, libre, bloque
 	if (tipoSel == "una"){
 		alert('seleccionar: una');
@@ -71,9 +84,10 @@ function botonSel(event, tipoSel){
 	else{
 		alert('error! Seleccionar: ' + tipoSel);
 	}
-	
 }
 function botonItem(event, item){
+	encender(event.target);
+
 	if (item == "suelo"){
 		alert('seleccionar: suelo');
 	}

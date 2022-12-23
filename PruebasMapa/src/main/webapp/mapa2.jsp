@@ -10,7 +10,7 @@
 	<script type="text/javascript" src="js/funciones.js"></script>
 
 	<!-- declaracion de variables que se usaran para estilos -->
-	<c:set var="estiloBoton" scope = "page" value="w3-bar-item w3-button w3-border"/>
+	<c:set var="estiloBoton" scope = "page" value="w3-bar-item w3-button w3-border btnApagado"/>
 	<!-- --------------------------------------------------- -->
 
 	<body>
@@ -21,7 +21,7 @@
 				<div class="w3-bar-item">Acciones </div>
 			</div>
 			<div class="w3-leftbar w3-border-blue">
-				<a href="#" class="<c:out value="${estiloBoton}" /> btnApagado" onclick="botonAnadir(event)">Añadir (a)</a>
+				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonAnadir(event)">Añadir (a)</a>
 				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonBorrar(event)">borrar (b)</a>
 			</div>			
 			<div class="w3-bar w3-dark-grey">

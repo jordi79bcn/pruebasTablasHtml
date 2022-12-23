@@ -56,6 +56,7 @@ html, body {width:100%;height:100%;}
 .w3-button.btnEncendido{
 	background-color: red;
 }
+
 /*
 NO SE PUEDE USAR UN CSS DENTRO DE OTRO! PERO PUEDES USAR UNA VARIABLE JSTL Y APLICARLA. 
 .estilo-boton-menu{
