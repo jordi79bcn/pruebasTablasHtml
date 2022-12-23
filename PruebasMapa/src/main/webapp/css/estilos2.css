@@ -48,3 +48,9 @@ html, body {width:100%;height:100%;}
 	height: 100%;
 	
 }
+
+/*
+NO SE PUEDE USAR UN CSS DENTRO DE OTRO! PERO PUEDES USAR UNA VARIABLE JSTL Y APLICARLA. 
+.estilo-boton-menu{
+	w3-bar-item w3-button w3-border
+}*/
