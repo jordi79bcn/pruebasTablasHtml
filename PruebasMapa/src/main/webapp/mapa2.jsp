@@ -15,55 +15,55 @@
 
 	<body>
 
-		<div class="w3-sidebar w3-bar-block w3-light-grey" style="width:10%">
+		<div class="w3-sidebar w3-bar-block w3-light-grey" style="width:15%">
 		  <!--  a href="#" class="w3-bar-item w3-button w3-hover-green" onclick="alert('Link 3')">Link 3</a-->
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Acciones </div>
 			</div>
 			<div class="w3-leftbar w3-border-blue">
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="xxx(yyy)">Añadir (a)</a>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="xxx(yyy)">borrar (b)</a>
+				<a href="#" class="<c:out value="${estiloBoton}" /> btnApagado" onclick="botonAnadir(event)">Añadir (a)</a>
+				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonBorrar(event)">borrar (b)</a>
 			</div>			
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Seleccion</div>
 			</div>
 			<div class="w3-leftbar w3-border-red">
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="xxx(yyy)">Una celda (click)</a>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="xxx(yyy)">Libre (shift)</a>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="xxx(yyy)">Bloque (ctrl)</a>
+				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonSel(event, 'una')">Una celda (click)</a>
+				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonSel(event, 'libre')">Libre (shift)</a>
+				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonSel(event, 'bloque')">Bloque (ctrl)</a>
 			</div>			
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Items</div>
 			</div>
 			<div class="w3-leftbar w3-border-green">
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="xxx(yyy)">Suelo (s)</a>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="xxx(yyy)">Enemigos (e)</a>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="xxx(yyy)">Objetos (o)</a>
+				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'suelo')">Suelo (s)</a>
+				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'enemigo')">Enemigos (e)</a>
+				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'objeto')">Objetos (o)</a>
 			</div>
 			
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Undo/Redo</div>
 			</div>
 			<div class="w3-leftbar w3-border-orange">
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="xxx(yyy)">Deshacer (d)</a>
+				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonDeshacer(event)">Deshacer (d)</a>
 			</div>
 
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Niveles</div>
 			</div>
 			<div class="w3-leftbar w3-border-pink">
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="xxx(yyy)">Guardar</a>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="xxx(yyy)">Descartar cambios</a>
+				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonGuardar(event)">Guardar</a>
+				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonDescartar(event)">Descartar cambios</a>
 			</div>		
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Opciones de cuadrícula</div>
 			</div>
 			<div class="w3-leftbar w3-border-brown">
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="xxx(yyy)">Cambiar tamaño de celda</a>
+				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonCambiarTamCelda(event)">Cambiar tamaño de celda</a>
 			</div>
 		</div>
 		
-		<div style="margin-left:10%;height: 100%">
+		<div style="margin-left:15%;height: 100%">
 			<div class="w3-container w3-dark-grey"  style="height:10%">
 			  <h1>Editor de niveles</h1>
 			</div>

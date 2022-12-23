@@ -44,3 +44,62 @@ function entrarCelda(event) {
 		mapa.refrescarBloqueCeldas(event.target.id);
 	}
 }
+
+//--------------- funciones para los botones ---------------------------------
+
+function botonAnadir(event){
+	//alert('botonAnadir');
+	let list = event.target.classList;
+	list.replace("btnApagado", "btnEncendido");    // Devuelve `false` (no existe la clase warning)
+}
+
+function botonBorrar(event){
+	alert('botonBorrar');
+}
+
+function botonSel(event, tipoSel){
+	//una, libre, bloque
+	if (tipoSel == "una"){
+		alert('seleccionar: una');
+	}
+	else if (tipoSel == "libre"){
+		alert('seleccionar: libre');
+	}
+	else if (tipoSel == "bloque"){
+		alert('seleccionar: bloque');
+	}
+	else{
+		alert('error! Seleccionar: ' + tipoSel);
+	}
+	
+}
+function botonItem(event, item){
+	if (item == "suelo"){
+		alert('seleccionar: suelo');
+	}
+	else if (item == "enemigo"){
+		alert('seleccionar: enemigo');
+	}
+	else if (item == "objeto"){
+		alert('seleccionar: objeto');
+	}
+	else{
+		alert('error! item: ' + item);
+	}
+}
+
+function botonDeshacer(event){
+	alert('botonDeshacer');
+}
+
+function botonGuardar(event){
+	alert('botonGuardar');
+}
+
+function botonDescartar(event){
+	alert('botonDescartar');
+}
+
+function botonCambiarTamCelda(event){
+	alert('botonCambiarTamCelda');
+}
