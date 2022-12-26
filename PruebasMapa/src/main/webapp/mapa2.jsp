@@ -20,14 +20,15 @@
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Acciones </div>
 			</div>
-			<div class="w3-leftbar w3-border-blue">
+			<div>
 				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonAnadir(event)">Añadir (a)</a>
 				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonBorrar(event)">borrar (b)</a>
 			</div>			
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Seleccion</div>
 			</div>
-			<div class="w3-leftbar w3-border-red">
+			<!-- para barra lateral usa esto: div class="w3-leftbar w3-border-red" -->
+			<div>
 				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonSel(event, 'una')">Una celda (click)</a>
 				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonSel(event, 'libre')">Libre (shift)</a>
 				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonSel(event, 'bloque')">Bloque (ctrl)</a>
@@ -35,7 +36,7 @@
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Items</div>
 			</div>
-			<div class="w3-leftbar w3-border-green">
+			<div>
 				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'suelo')">Suelo (s)</a>
 				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'enemigo')">Enemigos (e)</a>
 				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'objeto')">Objetos (o)</a>
@@ -44,21 +45,21 @@
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Undo/Redo</div>
 			</div>
-			<div class="w3-leftbar w3-border-orange">
+			<div>
 				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonDeshacer(event)">Deshacer (d)</a>
 			</div>
 
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Niveles</div>
 			</div>
-			<div class="w3-leftbar w3-border-pink">
+			<div>
 				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonGuardar(event)">Guardar</a>
 				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonDescartar(event)">Descartar cambios</a>
 			</div>		
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Opciones de cuadrícula</div>
 			</div>
-			<div class="w3-leftbar w3-border-brown">
+			<div>
 				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonCambiarTamCelda(event)">Cambiar tamaño de celda</a>
 			</div>
 		</div>
@@ -68,7 +69,7 @@
 			  <h1>Editor de niveles</h1>
 			</div>
 		
-			<div class="w3-container container"  style="height:90%">
+			<div class="w3-container container" style="height:90%">
 				<!-- div class="container" -->
 					<div class="grid" style="height:100%">
 						<c:forEach var="numFila" begin="1" end="50">

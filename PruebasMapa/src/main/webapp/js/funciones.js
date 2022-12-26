@@ -29,7 +29,7 @@ function clickCelda(event) {
 		mapa.cerrarBloqueCeldas(event.target.id);
 	}
 	else {
-		alert("error! modo imposible: " + modo);
+		//alert("error! modo imposible: " + modo);
 	}
 
 	console.log("modo al terminar click: " + modo)
@@ -51,7 +51,8 @@ function entrarCelda(event) {
 function encender(boton){
 	
 	//apagar los otros botones en este div que están encendidos. El div se saca del padre (parentNode)
-	//TODO porque no funciona con querySelector (sin el all) ni con .w3-button.btnEncendido?
+	//porque no funciona con querySelector (sin el all)? Porquer queryselector solo devuelve el 1er elemento que cumple con la regla. SI los quieres todos, necesitas QuerySelectorAll.
+	//ni con .w3-button.btnEncendido? Porque debes tener lio de selectores, mira aqui: https://www.w3schools.com/cssref/css_selectors.php
 	boton.parentNode.querySelectorAll('.btnEncendido').forEach(elem=>{
 		elem.classList.replace("btnEncendido", "btnApagado");
 	})
@@ -73,47 +74,47 @@ function botonSel(event, tipoSel){
 
 	//una, libre, bloque
 	if (tipoSel == "una"){
-		alert('seleccionar: una');
+		//alert('seleccionar: una');
 	}
 	else if (tipoSel == "libre"){
-		alert('seleccionar: libre');
+		//alert('seleccionar: libre');
 	}
 	else if (tipoSel == "bloque"){
-		alert('seleccionar: bloque');
+		//alert('seleccionar: bloque');
 	}
 	else{
-		alert('error! Seleccionar: ' + tipoSel);
+		//alert('error! Seleccionar: ' + tipoSel);
 	}
 }
 function botonItem(event, item){
 	encender(event.target);
 
 	if (item == "suelo"){
-		alert('seleccionar: suelo');
+		//alert('seleccionar: suelo');
 	}
 	else if (item == "enemigo"){
-		alert('seleccionar: enemigo');
+		//alert('seleccionar: enemigo');
 	}
 	else if (item == "objeto"){
-		alert('seleccionar: objeto');
+		//alert('seleccionar: objeto');
 	}
 	else{
-		alert('error! item: ' + item);
+		//alert('error! item: ' + item);
 	}
 }
 
 function botonDeshacer(event){
-	alert('botonDeshacer');
+	//alert('botonDeshacer');
 }
 
 function botonGuardar(event){
-	alert('botonGuardar');
+	//alert('botonGuardar');
 }
 
 function botonDescartar(event){
-	alert('botonDescartar');
+	//alert('botonDescartar');
 }
 
 function botonCambiarTamCelda(event){
-	alert('botonCambiarTamCelda');
+	//alert('botonCambiarTamCelda');
 }
