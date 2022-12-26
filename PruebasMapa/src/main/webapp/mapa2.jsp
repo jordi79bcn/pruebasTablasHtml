@@ -21,32 +21,32 @@
 				<div class="w3-bar-item">Acciones </div>
 			</div>
 			<div>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonAnadir(event)">Añadir (a)</a>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonBorrar(event)">borrar (b)</a>
+				<a href="#" id="btnAnadir" class="<c:out value="${estiloBoton}" />" onclick="botonAnadir(event)">Añadir (a)</a>
+				<a href="#" id="btnBorrar" class="<c:out value="${estiloBoton}" />" onclick="botonBorrar(event)">borrar (b)</a>
 			</div>			
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Seleccion</div>
 			</div>
 			<!-- para barra lateral usa esto: div class="w3-leftbar w3-border-red" -->
 			<div>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonSel(event, 'una')">Una celda (click)</a>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonSel(event, 'libre')">Libre (shift)</a>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonSel(event, 'bloque')">Bloque (ctrl)</a>
+				<a href="#" id="btnSelUna" class="<c:out value="${estiloBoton}" />" onclick="botonSel(event, 'una')">Una celda (1)</a>
+				<a href="#" id="btnSelLibre" class="<c:out value="${estiloBoton}" />" onclick="botonSel(event, 'libre')">Libre (2)</a>
+				<a href="#" id="btnSelBloque" class="<c:out value="${estiloBoton}" />" onclick="botonSel(event, 'bloque')">Bloque (3)</a>
 			</div>			
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Items</div>
 			</div>
 			<div>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'suelo')">Suelo (s)</a>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'enemigo')">Enemigos (e)</a>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'objeto')">Objetos (o)</a>
+				<a href="#" id="btnItemSuelo" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'suelo')">Suelo (s)</a>
+				<a href="#" id="btnItemEnemigo" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'enemigo')">Enemigos (e)</a>
+				<a href="#" id="btnItemObjeto" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'objeto')">Objetos (o)</a>
 			</div>
 			
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Undo/Redo</div>
 			</div>
 			<div>
-				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonDeshacer(event)">Deshacer (d)</a>
+				<a href="#" class="<c:out value="${estiloBoton}" />" onclick="botonDeshacer(event)">Deshacer</a>
 			</div>
 
 			<div class="w3-bar w3-dark-grey">
@@ -64,6 +64,7 @@
 			</div>
 		</div>
 		
+		<!-- TODO ajustar para que se vea bien, no respeta el mismo margen que el contenido! --> 
 		<div style="margin-left:15%;height: 100%">
 			<div class="w3-container w3-dark-grey"  style="height:10%">
 			  <h1>Editor de niveles</h1>

@@ -104,7 +104,7 @@ class Mapa {
 		let ini = this.#getCeldaPorID(idCeldaInicio);
 		let fin = this.#getCeldaPorID(idCeldaFin);
 
-		// ---- todo esto de abajo es para recorrer el bucle de menor a mayor.
+		// ---- to.do esto de abajo es para recorrer el bucle de menor a mayor.
 		let f0 = ini.getFila();
 		let c0 = ini.getColumna();
 

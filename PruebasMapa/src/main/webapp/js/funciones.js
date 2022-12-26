@@ -46,12 +46,48 @@ function entrarCelda(event) {
 }
 
 //--------------- funciones para los botones ---------------------------------
+document.addEventListener("keydown", function(event) {
+	switch (event.key) {
+	  case 'a':
+        event.preventDefault();
+        document.getElementById("btnAnadir").click();
+	    break;
+	  case 'b':
+        event.preventDefault();
+        document.getElementById("btnBorrar").click();
+	    break;
+	  case '1':
+        event.preventDefault();
+        document.getElementById("btnSelUna").click();
+	    break;
+	  case '2':
+        event.preventDefault();
+        document.getElementById("btnSelLibre").click();
+	    break;
+	  case '3':
+        event.preventDefault();
+        document.getElementById("btnSelBloque").click();
+	    break;
+	  case 's':
+        event.preventDefault();
+        document.getElementById("btnItemSuelo").click();
+	    break;
+	  case 'e':
+        event.preventDefault();
+        document.getElementById("btnItemEnemigo").click();
+	    break;
+	  case 'o':
+        event.preventDefault();
+        document.getElementById("btnItemObjeto").click();
+	    break;
+	}
+});
 
-//esta funcion solo funcionará si el botón en cuestión tiene la clase btnApagado, y pertenece a un "padre" que contiene a todos los botones de su grupo.  
+//esta funcion solo funcionará si el botón en cuestión tiene la clase btnApagado, y pertenece a un "padre" que contiene a to.dos los botones de su grupo.  
 function encender(boton){
 	
 	//apagar los otros botones en este div que están encendidos. El div se saca del padre (parentNode)
-	//porque no funciona con querySelector (sin el all)? Porquer queryselector solo devuelve el 1er elemento que cumple con la regla. SI los quieres todos, necesitas QuerySelectorAll.
+	//porque no funciona con querySelector (sin el all)? Porquer queryselector solo devuelve el 1er elemento que cumple con la regla. SI los quieres to.dos, necesitas QuerySelectorAll.
 	//ni con .w3-button.btnEncendido? Porque debes tener lio de selectores, mira aqui: https://www.w3schools.com/cssref/css_selectors.php
 	boton.parentNode.querySelectorAll('.btnEncendido').forEach(elem=>{
 		elem.classList.replace("btnEncendido", "btnApagado");
