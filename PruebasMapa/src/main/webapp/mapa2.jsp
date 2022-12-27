@@ -45,12 +45,12 @@
 					Suelo (s)<i class="fa fa-caret-down"></i>
 				</div>
 				<div id="subMenuSuelo" class="w3-hide w3-card-4">
-					<div class="w3-bar-item w3-button" onclick="botonSuelo(event, Suelo.Verde)">
-						<img src="img/verde.png"/>
-					</div>
-					<div class="w3-bar-item w3-button" onclick="botonSuelo(event, Suelo.Rojo)">
-						<img src="img/rojo.png"/>
-					</div>
+					//FIXME no estoy seguro que esto sea buena idea: sacar un objeto javascript de una variable definida en jstl????
+					<c:forEach var="fila" items="${arrayTiposSuelo}">
+						<div class="w3-bar-item w3-button" onclick="botonSuelo(event, Suelo.Verde)">
+							<img src="<c:out value="${fila[0]}" />"/>
+						</div>
+					</c:forEach>
 				</div>
 
 				<div id="btnItemEnemigo" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'enemigo', 'subMenuEnemigo')">
