@@ -69,7 +69,6 @@ class Mapa {
 			//cambio de modo de seleccion, reseteamos numClick.
 			this.#numClick = 0;
 
-			//FIXME si no cierro el bloque, cuando cambio de modo se borra el ultimo bloque dibujado!. SOlucion: borralo "a posta" o mantenlo.
 			//si el modo anterior era bloque y ahora hemos ido a otro, cancelamos el bloque.
 			if (this.#modoSel == ModoSel.Insertar_bloque){
 				this.#cancelarBloqueCeldas();				
@@ -108,6 +107,7 @@ class Mapa {
 		this.#desmarcarUltimoBloque();
 		this.#idCeldaInicioBloque = -1;
 		this.#idCeldaFinBloque = -1;
+		this.#numClick = 0; //por si acaso, reseteamos el click.
 	}
 
 	#cerrarBloqueCeldas(idCelda) {
