@@ -76,8 +76,8 @@
 						<c:forEach var="numFila" begin="1" end="50">
 							<c:forEach var="numColumna" begin="1" end="50">
 								<div class="celda vacia" id='<c:out value="${numFila}_${numColumna}" />' 
-									onmouseenter="entrarCelda(event)"
-									onclick="clickCelda(event)">
+									onmouseenter="funEntrarCelda(event)"
+									onclick="funClickCelda(event)">
 								</div>
 							</c:forEach>
 						</c:forEach>

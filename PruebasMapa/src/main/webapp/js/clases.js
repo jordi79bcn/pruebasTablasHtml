@@ -1,5 +1,6 @@
 "use strict";
 
+//let suelo = Suelo.Vacio;
 
 class Modo {
 	static Nada = new Modo("Nada")
@@ -34,7 +35,8 @@ class Mapa {
 	#ultimasMarcadas;
 	#idCeldaInicioBloque; //1a celda seleccionada en un bloque
 	#idCeldaFinBloque; //2a celda seleccionada en un bloque (cierre)
-	#sueloInicioBloque; //el suelo a dibujar en ese bloque. Puede ser util si usamos un color para optimizar.
+	#modo = Modo.Nada;
+	#suelo;
 
 
 	constructor(filas, columnas) {
@@ -67,7 +69,7 @@ class Mapa {
 		return this.#mapCeldas.get(idCelda);
 	}
 
-	marcarCelda(idCelda, suelo) {
+	#marcarCelda(idCelda, suelo) {
 		this.#mapCeldas.get(idCelda).setSuelo(suelo);
 	}
 
@@ -76,31 +78,29 @@ class Mapa {
 		this.#ultimasMarcadas.length = 0; //vaciamos el array, ya no hace falta.
 	}
 
-	iniciarBloqueCeldas(idCelda, suelo) {
+	#iniciarBloqueCeldas(idCelda) {
 		this.#idCeldaInicioBloque = idCelda;
-		this.#sueloInicioBloque = suelo;
 	}
 
-	cerrarBloqueCeldas(idCelda) {
+	#cerrarBloqueCeldas(idCelda) {
 		this.#idCeldaFinBloque = idCelda;
 		this.#desmarcarUltimoBloque();// creo que aqui no hace falta, ya se borra en refrescar.
-		this.#marcarBloqueCeldas(this.#idCeldaInicioBloque, this.#idCeldaFinBloque, this.#sueloInicioBloque);
+		this.#marcarBloqueCeldas(this.#idCeldaInicioBloque, this.#idCeldaFinBloque);
 		this.#ultimasMarcadas.length = 0; //vaciamos el array, ya no hace falta.
 
 		//--- despues de cerrar, estos valores se resetean.
 		this.#idCeldaInicioBloque = -1;
 		this.#idCeldaFinBloque = -1;
-		this.#sueloInicioBloque = -1;
 
 	}
 
 	//recibe la celda de fin (provisional, puede actualizarse hasta que haga click por 2a vez.)
-	refrescarBloqueCeldas(idCeldaFinProvisional) {
+	#refrescarBloqueCeldas(idCeldaFinProvisional) {
 		this.#desmarcarUltimoBloque();
-		this.#ultimasMarcadas = this.#marcarBloqueCeldas(this.#idCeldaInicioBloque, idCeldaFinProvisional, this.#sueloInicioBloque);
+		this.#ultimasMarcadas = this.#marcarBloqueCeldas(this.#idCeldaInicioBloque, idCeldaFinProvisional);
 	}
 
-	#marcarBloqueCeldas(idCeldaInicio, idCeldaFin, suelo) {
+	#marcarBloqueCeldas(idCeldaInicio, idCeldaFin) {
 		let ini = this.#getCeldaPorID(idCeldaInicio);
 		let fin = this.#getCeldaPorID(idCeldaFin);
 
@@ -126,13 +126,56 @@ class Mapa {
 		for (let f = f0; f <= f1; f++) {
 			for (let c = c0; c <= c1; c++) {
 				celda = this.#getCeldaFilaCol(f, c);
-				celda.setSuelo(suelo);
+				celda.setSuelo(this.#suelo);
 				this.#ultimasMarcadas.push(celda.getDivID());
 			}
 		}
 
 		return this.#ultimasMarcadas;
 	}
+	
+	//-------------------------------------------------------------------
+
+	clickCelda(event) {
+		if (this.#modo == Modo.Nada) {
+			this.#suelo = event.shiftKey ? Suelo.Vacio : Suelo.Rojo;
+	
+			if (event.ctrlKey) {
+				this.#modo = Modo.Insertar_bloque;
+				//celdaInicio = event.target;
+				this.#iniciarBloqueCeldas(event.target.id, this.#suelo);
+			}
+			else {
+				this.#modo = Modo.Insertar_una;
+				this.#marcarCelda(event.target.id, this.#suelo);
+			}
+		}
+		else if (this.#modo == Modo.Insertar_una) {
+			this.#modo = Modo.Nada;
+			this.#marcarCelda(event.target.id, this.#suelo);
+		}
+		else if (this.#modo == Modo.Insertar_bloque) {
+			this.#modo = Modo.Nada;
+			this.#cerrarBloqueCeldas(event.target.id);
+		}
+		else {
+			//alert("error! modo imposible: " + modo);
+		}
+	
+		console.log("modo al terminar click: " + this.#modo)
+	}
+	
+	entrarCelda(event) {
+		if (this.#modo == Modo.Insertar_una) {
+			this.#marcarCelda(event.target.id, this.#suelo);
+		}
+		else if (this.#modo == Modo.Insertar_bloque) {
+			//mapa.refrescarBloqueCeldas(celdaInicio.id, event.target.id, suelo);
+			this.#refrescarBloqueCeldas(event.target.id);
+		}
+	}
+
+//------------------------------------------------------------------------------
 
 	toString() {
 		for (let f = 0; f < this.#filas; f++) {
