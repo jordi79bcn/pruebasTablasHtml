@@ -103,16 +103,16 @@ function botonItem(event, item){
 	encender(event.target);
 
 	if (item == "suelo"){
-		//alert('seleccionar: suelo');
+		abrirSubmenu('subMenuSuelo');		
 	}
 	else if (item == "enemigo"){
-		//alert('seleccionar: enemigo');
+		abrirSubmenu('subMenuEnemigo');		
 	}
 	else if (item == "objeto"){
-		//alert('seleccionar: objeto');
+		abrirSubmenu('subMenuObjeto');		
 	}
 	else{
-		//alert('error! item: ' + item);
+		alert('error! item: ' + item);
 	}
 }
 
@@ -136,10 +136,9 @@ function abrirSubmenu(idDivSubmenu) {
   var x = document.getElementById(idDivSubmenu);
   if (x.className.indexOf("w3-show") == -1) {
     x.className += " w3-show";
-    x.previousElementSibling.className += " w3-green";
+    //x.previousElementSibling.className += " w3-green";
   } else { 
     x.className = x.className.replace(" w3-show", "");
-    x.previousElementSibling.className = 
-    x.previousElementSibling.className.replace(" w3-green", "");
+    //x.previousElementSibling.className = x.previousElementSibling.className.replace(" w3-green", "");
   }
 }

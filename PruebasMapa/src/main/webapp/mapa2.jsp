@@ -6,7 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="css/estilos2.css"/>
-	<script type="text/javascript" src="js/clases.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script type="text/javascript" src="js/clases.js"></script>
 	<script type="text/javascript" src="js/funciones.js"></script>
 
 	<!-- declaracion de variables que se usaran para estilos -->
@@ -37,11 +38,13 @@
 				<div class="w3-bar-item">Items</div>
 			</div>
 			<div>
-				<a href="#" id="btnItemSuelo" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'suelo')">Suelo (s)</a>
-				<div class="w3-bar-item w3-button" onclick="abrirSubmenu('subMenuSuelo')">
-					Accordion <i class="fa fa-caret-down"></i>
+				<!-- a href="#" id="btnItemSuelo" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'suelo')">Suelo (s)</a-->
+				<!--div id="btnItemSuelo" class="w3-bar-item w3-button" onclick="botonItem(event, 'suelo')"-->
+				<div id="btnItemSuelo" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'suelo')">
+					Suelo (s)<i class="fa fa-caret-down"></i>
 				</div>
-				<div id="subMenuSuelo" class="w3-hide w3-white w3-card-4">
+				<!-- div id="subMenuSuelo" class="w3-hide w3-white w3-card-4" -->
+				<div id="subMenuSuelo" class="w3-hide w3-card-4">
 					<a href="#" class="w3-bar-item w3-button">Link1</a>
 					<a href="#" class="w3-bar-item w3-button">Link2</a>
 				</div>
