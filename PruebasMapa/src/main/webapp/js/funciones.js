@@ -99,17 +99,16 @@ function botonSel(event, tipoSel){
 		alert('error! Seleccionar: ' + tipoSel);
 	}
 }
-function botonItem(event, item){
+function botonItem(event, item, idDivSubMenu){
 	encender(event.target);
 
+	abrirSubmenu(idDivSubMenu);		
+
 	if (item == "suelo"){
-		abrirSubmenu('subMenuSuelo');		
 	}
 	else if (item == "enemigo"){
-		abrirSubmenu('subMenuEnemigo');		
 	}
 	else if (item == "objeto"){
-		abrirSubmenu('subMenuObjeto');		
 	}
 	else{
 		alert('error! item: ' + item);
