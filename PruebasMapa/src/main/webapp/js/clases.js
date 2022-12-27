@@ -162,6 +162,12 @@ class Mapa {
 		return this.#ultimasMarcadas;
 	}
 	
+	cancelarAccion(){
+		if (this.#modoSel == ModoSel.Insertar_bloque){
+			this.#cancelarBloqueCeldas();
+		}
+	}
+	
 	//-------------------------------------------------------------------
 
 	clickCelda(idCelda) {

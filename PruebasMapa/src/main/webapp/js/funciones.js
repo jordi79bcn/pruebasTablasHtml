@@ -51,6 +51,10 @@ document.addEventListener("keydown", function(event) {
         event.preventDefault();
         document.getElementById("btnItemObjeto").click();
 	    break;
+	  case 'Escape':
+        event.preventDefault();
+        mapa.cancelarAccion();
+	    break;
 	}
 });
 
