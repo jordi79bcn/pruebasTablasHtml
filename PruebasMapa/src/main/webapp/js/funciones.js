@@ -73,10 +73,12 @@ function encender(boton){
 }
 
 function botonAnadir(event){
+	mapa.setAccion(Accion.Anadir);
 	encender(event.target);
 }
 
 function botonBorrar(event){
+	mapa.setAccion(Accion.Borrar);
 	encender(event.target);
 }
 
@@ -85,13 +87,13 @@ function botonSel(event, tipoSel){
 
 	//una, libre, bloque
 	if (tipoSel == 'una'){
-		mapa.setModoSel(ModoSel.Insertar_una);
+		mapa.setModoSel(ModoSel.Una);
 	}
 	else if (tipoSel == 'libre'){
-		mapa.setModoSel(ModoSel.Insertar_libre);
+		mapa.setModoSel(ModoSel.Libre);
 	}
 	else if (tipoSel == 'bloque'){
-		mapa.setModoSel(ModoSel.Insertar_bloque);
+		mapa.setModoSel(ModoSel.Bloque);
 	}
 	else{
 		alert('error! Seleccionar: ' + tipoSel);

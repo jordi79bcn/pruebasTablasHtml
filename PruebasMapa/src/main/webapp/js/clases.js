@@ -3,10 +3,9 @@
 //let suelo = Suelo.Vacio;
 
 class ModoSel {
-	static Nada = new ModoSel("Nada")
-	static Insertar_una = new ModoSel("Insertar_una")
-	static Insertar_libre = new ModoSel("Insertar_libre")
-	static Insertar_bloque = new ModoSel("Insertar_bloque")
+	static Una = new ModoSel("Insertar_una")
+	static Libre = new ModoSel("Insertar_libre")
+	static Bloque = new ModoSel("Insertar_bloque")
 
 	constructor(name) {
 		this.name = name
@@ -14,6 +13,19 @@ class ModoSel {
 
 	toString() {
 		return "Modo: " + this.name;
+	}
+}
+
+class Accion {
+	static Anadir = new Accion("Anadir")
+	static Borrar= new Accion("Borrar")
+
+	constructor(name) {
+		this.name = name
+	}
+
+	toString() {
+		return "Accion: " + this.name;
 	}
 }
 
@@ -36,9 +48,10 @@ class Mapa {
 	#ultimasMarcadas;
 	#idCeldaInicioBloque; //1a celda seleccionada en un bloque
 	#idCeldaFinBloque; //2a celda seleccionada en un bloque (cierre)
-	#modoSel = ModoSel.Nada;
+	#modoSel = ModoSel.Una;
 	#suelo;
 	#numClick; //se usa para saber si es el 1er click o el 2o, el 1o abre el bloque y el 2o lo cierra.
+	#accion; //añadir, borrar. Lo que el usr marque en el menú "acciones"
 
 
 	constructor(filas, columnas) {
@@ -70,12 +83,30 @@ class Mapa {
 			this.#numClick = 0;
 
 			//si el modo anterior era bloque y ahora hemos ido a otro, cancelamos el bloque.
-			if (this.#modoSel == ModoSel.Insertar_bloque){
+			if (this.#modoSel == ModoSel.Bloque){
 				this.#cancelarBloqueCeldas();				
 			}
 		}
 		
 		this.#modoSel = modoSel;
+	}
+	
+	
+	//FIXME no permitas cambiar de accion si esta en medio de una seleccion o en otro modo!
+	setAccion(accion){
+		if (this.#accion != accion){
+			//cambio de modo de accion, reseteamos numClick.
+			this.#numClick = 0;
+			
+			if (accion == Accion.Anadir){
+				this.#suelo = Suelo.Rojo; //TODO de momento rojo fijo, mas adelante necesitaré una variable sueloSel que guarde el tipo de suelo que he añadido en el menú (falta un selector de tipo de suelo)
+			}
+			else if (accion == Accion.Borrar){
+				this.#suelo = Suelo.Vacio;
+			}
+			
+			this.#accion = accion;
+		}
 	}
 
 	setSuelo(suelo){
@@ -163,7 +194,7 @@ class Mapa {
 	}
 	
 	cancelarAccion(){
-		if (this.#modoSel == ModoSel.Insertar_bloque){
+		if (this.#modoSel == ModoSel.Bloque){
 			this.#cancelarBloqueCeldas();
 		}
 	}
@@ -172,11 +203,11 @@ class Mapa {
 
 	clickCelda(idCelda) {
 		//libre y una son lo mismo, la direrencia es que libre si usará el mouseover y click no.
-		console.log("click! " + this.#numClick);
-		if (this.#modoSel == ModoSel.Insertar_una){
+		//console.log("click! " + this.#numClick);
+		if (this.#modoSel == ModoSel.Una){
 			this.#marcarCelda(idCelda);
 		}
-		else if (this.#modoSel == ModoSel.Insertar_libre){
+		else if (this.#modoSel == ModoSel.Libre){
 			if (this.#numClick == 0){
 				this.#marcarCelda(idCelda);
 			}
@@ -184,7 +215,7 @@ class Mapa {
 				//ignoro este click: ya se habrá marcado con entrarCelda
 			}
 		}
-		else if (this.#modoSel == ModoSel.Insertar_bloque) {
+		else if (this.#modoSel == ModoSel.Bloque) {
 			if (this.#numClick == 0){
 				this.#iniciarBloqueCeldas(idCelda);
 			}
@@ -204,14 +235,14 @@ class Mapa {
 	}
 	
 	entrarCelda(idCelda) {
-		if (this.#modoSel == ModoSel.Insertar_una) {
+		if (this.#modoSel == ModoSel.Una) {
 			//aqui no hacemos nada, ya hemos marcado al hacer click.
 		}
 		//solo marcamos celda en modo libre si ya hemos hecho click una vez, si no ignoramos.
-		else if (this.#modoSel == ModoSel.Insertar_libre && this.#numClick == 1) {
+		else if (this.#modoSel == ModoSel.Libre && this.#numClick == 1) {
 			this.#marcarCelda(idCelda);
 		}
-		else if (this.#modoSel == ModoSel.Insertar_bloque && this.#numClick == 1) {
+		else if (this.#modoSel == ModoSel.Bloque && this.#numClick == 1) {
 			this.#refrescarBloqueCeldas(idCelda);
 		}
 	}
