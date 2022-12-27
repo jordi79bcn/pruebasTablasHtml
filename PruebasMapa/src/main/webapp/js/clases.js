@@ -65,10 +65,15 @@ class Mapa {
 	}
 	
 	setModoSel(modoSel){
-		//alert("guardo modo:" + modoSel);
 		if (this.#modoSel != modoSel){
 			//cambio de modo de seleccion, reseteamos numClick.
 			this.#numClick = 0;
+
+			//FIXME si no cierro el bloque, cuando cambio de modo se borra el ultimo bloque dibujado!. SOlucion: borralo "a posta" o mantenlo.
+			//si el modo anterior era bloque y ahora hemos ido a otro, cancelamos el bloque.
+			if (this.#modoSel == ModoSel.Insertar_bloque){
+				this.#cancelarBloqueCeldas();				
+			}
 		}
 		
 		this.#modoSel = modoSel;
@@ -99,9 +104,15 @@ class Mapa {
 		this.#idCeldaInicioBloque = idCelda;
 	}
 
+	#cancelarBloqueCeldas() {
+		this.#desmarcarUltimoBloque();
+		this.#idCeldaInicioBloque = -1;
+		this.#idCeldaFinBloque = -1;
+	}
+
 	#cerrarBloqueCeldas(idCelda) {
 		this.#idCeldaFinBloque = idCelda;
-		this.#desmarcarUltimoBloque();// creo que aqui no hace falta, ya se borra en refrescar.
+		this.#desmarcarUltimoBloque();
 		this.#marcarBloqueCeldas(this.#idCeldaInicioBloque, this.#idCeldaFinBloque);
 		this.#ultimasMarcadas.length = 0; //vaciamos el array, ya no hace falta.
 
@@ -153,15 +164,15 @@ class Mapa {
 	
 	//-------------------------------------------------------------------
 
-	clickCelda(event) {
+	clickCelda(idCelda) {
 		//libre y una son lo mismo, la direrencia es que libre si usará el mouseover y click no.
 		console.log("click! " + this.#numClick);
 		if (this.#modoSel == ModoSel.Insertar_una){
-			this.#marcarCelda(event.target.id);
+			this.#marcarCelda(idCelda);
 		}
 		else if (this.#modoSel == ModoSel.Insertar_libre){
 			if (this.#numClick == 0){
-				this.#marcarCelda(event.target.id);
+				this.#marcarCelda(idCelda);
 			}
 			else{
 				//ignoro este click: ya se habrá marcado con entrarCelda
@@ -169,10 +180,10 @@ class Mapa {
 		}
 		else if (this.#modoSel == ModoSel.Insertar_bloque) {
 			if (this.#numClick == 0){
-				this.#iniciarBloqueCeldas(event.target.id);
+				this.#iniciarBloqueCeldas(idCelda);
 			}
 			else{
-				this.#cerrarBloqueCeldas(event.target.id);
+				this.#cerrarBloqueCeldas(idCelda);
 			}
 		}
 		else {
@@ -186,16 +197,16 @@ class Mapa {
 
 	}
 	
-	entrarCelda(event) {
+	entrarCelda(idCelda) {
 		if (this.#modoSel == ModoSel.Insertar_una) {
 			//aqui no hacemos nada, ya hemos marcado al hacer click.
 		}
 		//solo marcamos celda en modo libre si ya hemos hecho click una vez, si no ignoramos.
 		else if (this.#modoSel == ModoSel.Insertar_libre && this.#numClick == 1) {
-			this.#marcarCelda(event.target.id);
+			this.#marcarCelda(idCelda);
 		}
 		else if (this.#modoSel == ModoSel.Insertar_bloque && this.#numClick == 1) {
-			this.#refrescarBloqueCeldas(event.target.id);
+			this.#refrescarBloqueCeldas(idCelda);
 		}
 	}
 

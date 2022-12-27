@@ -3,11 +3,11 @@
 const mapa = new Mapa(50, 50);
 
 function funClickCelda(event) {
-	mapa.clickCelda(event);
+	mapa.clickCelda(event.target.id);
 }
 
 function funEntrarCelda(event) {
-	mapa.entrarCelda(event);
+	mapa.entrarCelda(event.target.id);
 }
 
 function prepararMenu(){
