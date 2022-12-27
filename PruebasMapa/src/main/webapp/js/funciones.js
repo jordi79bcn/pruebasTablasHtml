@@ -115,6 +115,10 @@ function botonItem(event, item, idDivSubMenu){
 	}
 }
 
+function botonSuelo(event, suelo){
+	mapa.setSuelo(suelo);
+}
+
 function botonDeshacer(event){
 	//alert('botonDeshacer');
 }

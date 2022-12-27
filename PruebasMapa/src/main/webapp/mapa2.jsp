@@ -17,7 +17,7 @@
 
 	<body onload="prepararMenu()">
 
-		<div class="w3-sidebar w3-bar-block w3-light-grey" style="width:15%">
+		<div class="w3-sidebar w3-bar-block w3-light-grey" style="width:12%">
 		  <!--  a href="#" class="w3-bar-item w3-button w3-hover-green" onclick="alert('Link 3')">Link 3</a-->
 			<div class="w3-bar w3-dark-grey">
 				<div class="w3-bar-item">Acciones </div>
@@ -45,8 +45,12 @@
 					Suelo (s)<i class="fa fa-caret-down"></i>
 				</div>
 				<div id="subMenuSuelo" class="w3-hide w3-card-4">
-					<div class="w3-bar-item w3-button">Link1</div>
-					<div class="w3-bar-item w3-button">Link2</div>
+					<div class="w3-bar-item w3-button" onclick="botonSuelo(event, Suelo.Verde)">
+						<img src="img/verde.png"/>
+					</div>
+					<div class="w3-bar-item w3-button" onclick="botonSuelo(event, Suelo.Rojo)">
+						<img src="img/rojo.png"/>
+					</div>
 				</div>
 
 				<div id="btnItemEnemigo" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'enemigo', 'subMenuEnemigo')">
@@ -81,7 +85,7 @@
 				<div class="<c:out value="${estiloBoton}" />" onclick="botonDescartar(event)">Descartar cambios</div>
 			</div>		
 			<div class="w3-bar w3-dark-grey">
-				<div class="w3-bar-item">Opciones de cuadrícula</div>
+				<div class="w3-bar-item">Cuadrícula</div>
 			</div>
 			<div>
 				<div class="<c:out value="${estiloBoton}" />" onclick="botonCambiarTamCelda(event)">Cambiar tamaño de celda</div>
@@ -89,7 +93,7 @@
 		</div>
 		
 		<!-- TODO ajustar para que se vea bien, no respeta el mismo margen que el contenido! --> 
-		<div style="margin-left:15%;height: 100%">
+		<div style="margin-left:12%;height: 100%">
 			<div class="w3-container w3-dark-grey"  style="height:10%">
 			  <h1>Editor de niveles</h1>
 			</div>
