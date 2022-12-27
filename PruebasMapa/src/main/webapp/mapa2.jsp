@@ -38,6 +38,13 @@
 			</div>
 			<div>
 				<a href="#" id="btnItemSuelo" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'suelo')">Suelo (s)</a>
+				<div class="w3-bar-item w3-button" onclick="abrirSubmenu('subMenuSuelo')">
+					Accordion <i class="fa fa-caret-down"></i>
+				</div>
+				<div id="subMenuSuelo" class="w3-hide w3-white w3-card-4">
+					<a href="#" class="w3-bar-item w3-button">Link1</a>
+					<a href="#" class="w3-bar-item w3-button">Link2</a>
+				</div>
 				<a href="#" id="btnItemEnemigo" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'enemigo')">Enemigos (e)</a>
 				<a href="#" id="btnItemObjeto" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'objeto')">Objetos (o)</a>
 			</div>
