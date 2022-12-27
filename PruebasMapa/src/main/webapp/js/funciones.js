@@ -74,17 +74,17 @@ function botonSel(event, tipoSel){
 	encender(event.target);
 
 	//una, libre, bloque
-	if (tipoSel == "una"){
-		//alert('seleccionar: una');
+	if (tipoSel == 'una'){
+		mapa.setModoSel(ModoSel.Insertar_una);
 	}
-	else if (tipoSel == "libre"){
-		//alert('seleccionar: libre');
+	else if (tipoSel == 'libre'){
+		mapa.setModoSel(ModoSel.Insertar_libre);
 	}
-	else if (tipoSel == "bloque"){
-		//alert('seleccionar: bloque');
+	else if (tipoSel == 'bloque'){
+		mapa.setModoSel(ModoSel.Insertar_bloque);
 	}
 	else{
-		//alert('error! Seleccionar: ' + tipoSel);
+		alert('error! Seleccionar: ' + tipoSel);
 	}
 }
 function botonItem(event, item){
