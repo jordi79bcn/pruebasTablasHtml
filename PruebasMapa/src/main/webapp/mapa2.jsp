@@ -13,7 +13,7 @@
 	<c:set var="estiloBoton" scope = "page" value="w3-bar-item w3-button w3-border btnApagado"/>
 	<!-- --------------------------------------------------- -->
 
-	<body>
+	<body onload="prepararMenu()">
 
 		<div class="w3-sidebar w3-bar-block w3-light-grey" style="width:15%">
 		  <!--  a href="#" class="w3-bar-item w3-button w3-hover-green" onclick="alert('Link 3')">Link 3</a-->

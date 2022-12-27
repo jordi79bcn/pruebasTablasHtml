@@ -10,6 +10,12 @@ function funEntrarCelda(event) {
 	mapa.entrarCelda(event);
 }
 
+function prepararMenu(){
+	document.getElementById("btnAnadir").click();
+	document.getElementById("btnSelUna").click();
+	document.getElementById("btnItemSuelo").click();
+}
+
 //--------------- funciones para los botones ---------------------------------
 document.addEventListener("keydown", function(event) {
 	switch (event.key) {
