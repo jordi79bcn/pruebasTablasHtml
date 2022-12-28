@@ -328,7 +328,7 @@ class Celda {
 	
 	setSuelo(suelo) {
 		if (this.#getDiv().classList[0] == "celda"){
-			//Solo asignamos el suelo si realmente ha cambiado, si no ignoramos.
+			//Solo asign amos el suelo si realmente ha cambiado, si no ignoramos.
 			//if (suelo != this.#suelo){
 				this.#getDiv().style.backgroundImage = "url('img/"+suelo+"')";
 				this.#sueloAnterior = this.#suelo;
