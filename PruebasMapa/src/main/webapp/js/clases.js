@@ -1,6 +1,6 @@
 "use strict";
 
-//let suelo = Suelo.Vacio;
+let SUELO_VACIO = "blanco.png";
 
 class ModoSel {
 	static Una = new ModoSel("Insertar_una")
@@ -29,17 +29,6 @@ class Accion {
 	}
 }
 
-
-// esta clase hace la funciond de "enum" y sirve para escoger el tipo de suelo 
-class Suelo {
-	static Rojo = new Suelo("rojo")
-	static Verde = new Suelo("verde")
-	static Vacio = new Suelo("vacio")
-
-	constructor(name) {
-		this.name = name
-	}
-}
 class Mapa {
 	#filas;
 	#columnas;
@@ -60,7 +49,7 @@ class Mapa {
 		this.#arrayCeldas = new Array(filas);
 		this.#mapCeldas = new Map();
 		this.#ultimasMarcadas = []; //array vacio, se usara para guardar las provisionales que se han marcado y poderlas desmarcar.
-		this.#suelo = Suelo.Rojo;
+		this.#suelo = SUELO_VACIO;
 		this.#numClick = 0;
 		
 		this.#inicializarCeldas();
@@ -97,14 +86,6 @@ class Mapa {
 		if (this.#accion != accion){
 			//cambio de modo de accion, reseteamos numClick.
 			this.#numClick = 0;
-			
-			if (accion == Accion.Anadir){
-				this.#suelo = Suelo.Rojo; //TODO de momento rojo fijo, mas adelante necesitaré una variable sueloSel que guarde el tipo de suelo que he añadido en el menú (falta un selector de tipo de suelo)
-			}
-			else if (accion == Accion.Borrar){
-				this.#suelo = Suelo.Vacio;
-			}
-			
 			this.#accion = accion;
 		}
 	}
@@ -121,8 +102,17 @@ class Mapa {
 		return this.#mapCeldas.get(idCelda);
 	}
 
-	#marcarCelda(idCelda) {
-		this.#mapCeldas.get(idCelda).setSuelo(this.#suelo);
+	#marcarCeldaPorId(idCelda) {
+		this.#marcarCelda(this.#getCeldaPorID(idCelda));
+	}
+
+	#marcarCelda(celda) {
+		if (this.#accion == Accion.Anadir)
+			celda.setSuelo(this.#suelo);
+		else if (this.#accion == Accion.Borrar)
+			celda.setSuelo(SUELO_VACIO);
+		else
+			alert("accion imposible: " + this.#accion);
 	}
 
 	#desmarcarUltimoBloque() {
@@ -185,7 +175,8 @@ class Mapa {
 		for (let f = f0; f <= f1; f++) {
 			for (let c = c0; c <= c1; c++) {
 				celda = this.#getCeldaFilaCol(f, c);
-				celda.setSuelo(this.#suelo);
+				this.#marcarCelda(celda);
+				//celda.setSuelo(this.#suelo);
 				this.#ultimasMarcadas.push(celda.getDivID());
 			}
 		}
@@ -205,11 +196,11 @@ class Mapa {
 		//libre y una son lo mismo, la direrencia es que libre si usará el mouseover y click no.
 		//console.log("click! " + this.#numClick);
 		if (this.#modoSel == ModoSel.Una){
-			this.#marcarCelda(idCelda);
+			this.#marcarCeldaPorId(idCelda);
 		}
 		else if (this.#modoSel == ModoSel.Libre){
 			if (this.#numClick == 0){
-				this.#marcarCelda(idCelda);
+				this.#marcarCeldaPorId(idCelda);
 			}
 			else{
 				//ignoro este click: ya se habrá marcado con entrarCelda
@@ -240,7 +231,7 @@ class Mapa {
 		}
 		//solo marcamos celda en modo libre si ya hemos hecho click una vez, si no ignoramos.
 		else if (this.#modoSel == ModoSel.Libre && this.#numClick == 1) {
-			this.#marcarCelda(idCelda);
+			this.#marcarCeldaPorId(idCelda);
 		}
 		else if (this.#modoSel == ModoSel.Bloque && this.#numClick == 1) {
 			this.#refrescarBloqueCeldas(idCelda);
@@ -272,8 +263,8 @@ class Celda {
 		this.#fila = fila;
 		this.#columna = columna;
 		this.#divID = fila + "_" + columna; //montamos el id a partir de la fila y col.
-		this.#suelo = Suelo.Vacio; //si no nos dicen nada, está vacío
-		this.#sueloAnterior = Suelo.Vacio; //si no nos dicen nada, está vacío
+		this.#suelo = SUELO_VACIO; //si no nos dicen nada, está vacío
+		this.#sueloAnterior = SUELO_VACIO; //si no nos dicen nada, está vacío
 	}
 
 	getFila() {
@@ -302,7 +293,7 @@ class Celda {
 		return this.#div;
 	}
 
-	setSuelo(suelo) {
+	/*setSuelo(suelo) {
 		let ok = true;		 
 		let list = this.#getDiv().classList;
 		
@@ -317,7 +308,7 @@ class Celda {
 		
 		let classAnterior = list[1]; //la 0 será "celda" y la 1 "vacia", "roja"... etc
 		
-		if (suelo == Suelo.Vacio)
+		if (suelo == SUELO_VACIO)
 			list.replace(classAnterior, "vacia");
 		else if (suelo == Suelo.Rojo)
 			list.replace(classAnterior, "roja");
@@ -332,6 +323,20 @@ class Celda {
 		if (ok) {
 			this.#sueloAnterior = this.#suelo;
 			this.#suelo = suelo;			
+		}
+	}*/
+	
+	setSuelo(suelo) {
+		if (this.#getDiv().classList[0] == "celda"){
+			//Solo asignamos el suelo si realmente ha cambiado, si no ignoramos.
+			//if (suelo != this.#suelo){
+				this.#getDiv().style.backgroundImage = "url('img/"+suelo+"')";
+				this.#sueloAnterior = this.#suelo;
+				this.#suelo = suelo;
+			//}			
+		}
+		else{
+			alert("error: el estilo debe ser 'celda' en " + this.getDivID());
 		}
 	}
 

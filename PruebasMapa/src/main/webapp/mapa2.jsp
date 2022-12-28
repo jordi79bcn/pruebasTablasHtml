@@ -45,12 +45,17 @@
 					Suelo (s)<i class="fa fa-caret-down"></i>
 				</div>
 				<div id="subMenuSuelo" class="w3-hide w3-card-4">
-					//FIXME no estoy seguro que esto sea buena idea: sacar un objeto javascript de una variable definida en jstl????
-					<c:forEach var="fila" items="${arrayTiposSuelo}">
-						<div class="w3-bar-item w3-button" onclick="botonSuelo(event, Suelo.Verde)">
-							<img src="<c:out value="${fila[0]}" />"/>
+					<!-- FIXME no estoy seguro que esto sea buena idea: sacar un objeto javascript de una variable definida en jstl???? -->
+					<!--c:forEach var="fila" items="${arrayTiposSuelo}">
+						//TODO el ideal sería que la funcion JS botonSuelo recibiera la imagen o el class que debe mostrar, y eliminar la clase Suelo. Asi evitaria if-elseif eternos con cada opcion posible de suelo, ademas que podria guardar en un array (o bd) los diferentes tipos de suel, o cargarlos desde una carpeta al iniciar la app.
+						que esta jsp se cargue desde un servlet que le envie los tipos de suelo. se podra incluso filtrar por subsuelo, bosque...-->
+						<div class="w3-bar-item w3-button" onclick="botonSuelo(event, 'verde.png')">
+							<img src="img/verde.png"/>
 						</div>
-					</c:forEach>
+						<div class="w3-bar-item w3-button" onclick="botonSuelo(event, 'rojo.png')">
+							<img src="img/rojo.png"/>
+						</div>
+					<!--/c:forEach-->
 				</div>
 
 				<div id="btnItemEnemigo" class="<c:out value="${estiloBoton}" />" onclick="botonItem(event, 'enemigo', 'subMenuEnemigo')">
@@ -103,7 +108,7 @@
 					<div class="grid" style="height:100%">
 						<c:forEach var="numFila" begin="1" end="50">
 							<c:forEach var="numColumna" begin="1" end="50">
-								<div class="celda vacia" id='<c:out value="${numFila}_${numColumna}" />' 
+								<div class="celda" id='<c:out value="${numFila}_${numColumna}" />' 
 									onmouseenter="funEntrarCelda(event)"
 									onclick="funClickCelda(event)">
 								</div>
